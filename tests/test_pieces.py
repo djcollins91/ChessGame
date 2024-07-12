@@ -1,7 +1,7 @@
 import unittest
 from board import Board
-from pieces import Pawn
 from main import move_wp
+from pieces import Pawn
 
 class TestBoard(unittest.TestCase):
 
@@ -62,16 +62,18 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'WP', "Target position should have the white pawn.")
         print("Test 4 Passed")
 
-        # Test 5: Move pawn forward by 1 square from (0, 0)
-        self.board.place_piece(Pawn('WP'), 0, 0)
-        from_x, from_y = 0, 0
-        to_x, to_y = 0, 1
+        # Test 5: Move pawn forward by 1 square from initial position (0, 1)
+        self.board.place_piece(Pawn('WP'), 0, 1)
+        from_x, from_y = 0, 1
+        to_x, to_y = 0, 2
         result = move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'WP', "Target position should have the white pawn.")
         print("Test 5 Passed")
+
+        
 
 if __name__ == '__main__':
     unittest.main()
