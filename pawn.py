@@ -7,6 +7,7 @@ class Pawn:
 
     STARTING_PIECES = 8
     taken_pieces = 0
+    
 
     @staticmethod
     def taken_piece():

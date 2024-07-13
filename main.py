@@ -1,11 +1,6 @@
 from board import Board
 from helper import initialize_pieces
 
-
-
-
-
-
 def main():
     # Create a board
     board = Board()
