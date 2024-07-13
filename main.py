@@ -11,6 +11,16 @@ def move_wp(board, from_x, from_y, to_x, to_y):
                 return "Valid move"
     return "Invalid move"
 
+def move_bp(board, from_x, from_y, to_x, to_y):
+    piece = board.grid[from_y][from_x]
+    if piece and str(piece) == 'BP':
+        if (from_y == 6 and to_y in [4,5]) or (from_y != 6 and to_y == from_y - 1):
+            if board.grid[to_y][to_x] is None:
+                board.grid[to_y][to_x] = piece
+                board.grid[from_y][from_x] = None
+                return "Valid move"
+    return "Invalid move"
+
 def initialize_pieces(board):
     white_pawns = [Pawn('WP') for _ in range(8)]
     black_pawns = [Pawn('BP') for _ in range(8)]
