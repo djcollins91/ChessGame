@@ -1,7 +1,8 @@
 import unittest
 from board import Board
-from main import move_wp
-from pieces import Pawn
+
+
+from pawn import Pawn
 
 class TestBoard(unittest.TestCase):
 
@@ -23,7 +24,7 @@ class TestBoard(unittest.TestCase):
         # Test 1: Move pawn forward by 1 square from initial position
         from_x, from_y = 1, 1
         to_x, to_y = 1, 2
-        result = move_wp(self.board, from_x, from_y, to_x, to_y)
+        result = Pawn.move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
@@ -33,7 +34,7 @@ class TestBoard(unittest.TestCase):
         # Test 2: Move pawn forward by 2 squares from initial position
         from_x, from_y = 0, 1
         to_x, to_y = 0, 3
-        result = move_wp(self.board, from_x, from_y, to_x, to_y)
+        result = Pawn.move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
@@ -44,7 +45,7 @@ class TestBoard(unittest.TestCase):
         self.board.place_piece(Pawn('WP'), 2, 2)
         from_x, from_y = 2, 2
         to_x, to_y = 2, 3
-        result = move_wp(self.board, from_x, from_y, to_x, to_y)
+        result = Pawn.move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
@@ -55,7 +56,7 @@ class TestBoard(unittest.TestCase):
         self.board.place_piece(Pawn('WP'), 6, 6)
         from_x, from_y = 6, 6
         to_x, to_y = 6, 7
-        result = move_wp(self.board, from_x, from_y, to_x, to_y)
+        result = Pawn.move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
@@ -66,7 +67,7 @@ class TestBoard(unittest.TestCase):
         self.board.place_piece(Pawn('WP'), 0, 1)
         from_x, from_y = 0, 1
         to_x, to_y = 0, 2
-        result = move_wp(self.board, from_x, from_y, to_x, to_y)
+        result = Pawn.move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
@@ -78,7 +79,7 @@ class TestBoard(unittest.TestCase):
         self.board.place_piece(Pawn('WP'), 4, 4)
         from_x, from_y = 4, 4
         to_x, to_y = 5, 4  # Invalid move for a pawn
-        result = move_wp(self.board, from_x, from_y, to_x, to_y)
+        result = Pawn.move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Invalid move", "Move should be identified as invalid.")
         self.assertIsNotNone(self.board.grid[from_y][from_x], "Original position should still have the pawn.")
         self.assertIsNone(self.board.grid[to_y][to_x], "Target position should be empty.")
@@ -89,7 +90,7 @@ class TestBoard(unittest.TestCase):
         self.board.place_piece(Pawn('WP'), 4, 5)  # Place another white pawn in front
         from_x, from_y = 4, 4
         to_x, to_y = 4, 5  # Invalid move as the spot is occupied
-        result = move_wp(self.board, from_x, from_y, to_x, to_y)
+        result = Pawn.move_wp(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Invalid move", "Move should be identified as invalid.")
         self.assertIsNotNone(self.board.grid[from_y][from_x], "Original position should still have the pawn.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should still have the other pawn.")
