@@ -28,7 +28,7 @@ class TestBoard(unittest.TestCase):
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'BP', "Target position should have the white pawn.")
-        print("Test 1 for BP Passed")
+        print("Test 1 for move_bp passed")
 
         # Test 2: Move pawn forward by 2 squares from initial position
         from_x, from_y = 0, 6
@@ -38,7 +38,7 @@ class TestBoard(unittest.TestCase):
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'BP', "Target position should have the white pawn.")
-        print("Test 2 for BP Passed")
+        print("Test 2 for move_bp passed")
 
         # Test 3: Move pawn forward by 1 square from non-initial position
         self.board.place_piece(Pawn('BP'), 5, 5)
@@ -49,7 +49,7 @@ class TestBoard(unittest.TestCase):
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'BP', "Target position should have the white pawn.")
-        print("Test 3 for BP Passed")
+        print("Test 3 for move_bp passed")
 
         # Test 4: Move pawn forward by 1 square from random position
         self.board.place_piece(Pawn('BP'), 4, 4)
@@ -60,7 +60,7 @@ class TestBoard(unittest.TestCase):
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'BP', "Target position should have the white pawn.")
-        print("Test 4 for BP Passed")
+        print("Test 4 for move_bp passed")
 
         # Test 5: Move pawn forward by 1 square from initial position (0, 1)
         self.board.place_piece(Pawn('BP'), 6, 6)
@@ -71,7 +71,7 @@ class TestBoard(unittest.TestCase):
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the pawn after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'BP', "Target position should have the white pawn.")
-        print("Test 5 for BP Passed")
+        print("Test 5 for move_bp passed")
 
 
         # Test 6: Move pawn sideways (invalid move)
@@ -82,7 +82,7 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(result, "Invalid move", "Move should be identified as invalid.")
         self.assertIsNotNone(self.board.grid[from_y][from_x], "Original position should still have the pawn.")
         self.assertIsNone(self.board.grid[to_y][to_x], "Target position should be empty.")
-        print("Test 6 for BP Passed")
+        print("Test 6 for move_bp passed")
 
         # Test 7: Move pawn to an occupied spot (invalid move)
         self.board.place_piece(Pawn('BP'), 4, 4)
@@ -95,7 +95,7 @@ class TestBoard(unittest.TestCase):
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should still have the other pawn.")
         self.assertEqual(str(self.board.grid[from_y][from_x]), 'BP', "Original position should still have the white pawn.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'BP', "Target position should still have the white pawn.")
-        print("Test 7 for BP Passed")
+        print("Test 7 for move_bp passed")
 
     
         
