@@ -36,3 +36,6 @@ class Pawn:
                     board.grid[from_y][from_x] = None
                     return "Valid move"
         return "Invalid move"
+    
+    def take_piece_wp(board, from_x, from_y, to_x, to_y):
+        pass

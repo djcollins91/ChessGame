@@ -96,6 +96,8 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(str(self.board.grid[from_y][from_x]), 'BP', "Original position should still have the white pawn.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'BP', "Target position should still have the white pawn.")
         print("Test 7 for BP Passed")
+
+    
         
 
         
