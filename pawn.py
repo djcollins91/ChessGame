@@ -38,4 +38,13 @@ class Pawn:
         return "Invalid move"
     
     def take_piece_wp(board, from_x, from_y, to_x, to_y):
-        pass
+        piece = board.grid[from_y][from_x]
+        target = board.grid[to_y][to_x]
+        
+        if piece and str(piece) == 'WP':
+            # Ensure it's a diagonal move and there's a black piece to capture
+            if (abs(from_x - to_x) == 1 and to_y - from_y == 1) and target and str(target).startswith('B'):
+                board.grid[to_y][to_x] = piece
+                board.grid[from_y][from_x] = None
+                return "Valid move"
+        return "Invalid move"
