@@ -1,9 +1,9 @@
-from pawn import Pawn
+from piece import Piece
 
 
 def initialize_pieces(board):
-    white_pawns = [Pawn('WP') for _ in range(8)]
-    black_pawns = [Pawn('BP') for _ in range(8)]
+    white_pawns = [Piece('WP') for _ in range(8)]
+    black_pawns = [Piece('BP') for _ in range(8)]
 
     for i, pawn in enumerate(white_pawns):
         board.place_piece(pawn, i, 1)
