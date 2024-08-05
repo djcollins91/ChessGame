@@ -98,10 +98,5 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'WP', "Target position should still have the white pawn.")
         print("Test 7 for move_wp passed")
 
-   
-        
-
-        
-
 if __name__ == '__main__':
     unittest.main()
