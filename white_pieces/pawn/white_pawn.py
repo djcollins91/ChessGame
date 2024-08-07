@@ -10,7 +10,7 @@ class White_Pawn(Piece):
     def __str__(self):
         return self.name
 
-    
+    #how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
         piece = board.grid[from_y][from_x]
         if piece and str(piece) == 'WP':
@@ -22,6 +22,7 @@ class White_Pawn(Piece):
                     return "Valid move"
         return "Invalid move"
     
+    #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
         piece = board.grid[from_y][from_x]
         target = board.grid[to_y][to_x]
