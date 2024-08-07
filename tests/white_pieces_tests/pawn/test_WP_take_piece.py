@@ -1,7 +1,7 @@
 import unittest
 from board import Board
-from white_pawn import White_Pawn
-from black_pawn import Black_Pawn
+from white_pieces.pawn.white_pawn import White_Pawn
+from black_pieces.pawn.black_pawn import Black_Pawn
 
 class TestBoard(unittest.TestCase):
 
