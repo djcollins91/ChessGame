@@ -18,7 +18,6 @@ def initialize_pieces(board):
     for i, pawn in enumerate(black_pawns):
         board.place_piece(pawn, i, 6)
 
-    
     # Create white and black rooks with specific classes
     white_rooks = [Piece('WR') for _ in board_width]
     black_rooks = [Piece('BR') for _ in board_width]
