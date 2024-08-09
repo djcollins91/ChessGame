@@ -5,6 +5,15 @@ class Piece:
     def __str__(self):
         return self.name
     
+    #when the piece is movable
+    def valid_move(piece, board, from_x, from_y, to_x, to_y):
+        board.grid[to_y][to_x] = piece
+        board.grid[from_y][from_x] = None
+        return "Valid move"
+    
+    #when the piece is not able to move
+    def invalid_move():
+        return "Invalid move"
     
     def taken_piece():
         Piece.taken_pieces += 1
