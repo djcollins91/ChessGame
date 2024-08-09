@@ -48,7 +48,7 @@ class White_Rook(Piece):
                 
                 elif (board.grid[from_y][change] is not None):
                     return Piece.invalid_move()
-                
+                   
             return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
             
     #how the piece can take a piece
