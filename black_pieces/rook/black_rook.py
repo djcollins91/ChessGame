@@ -12,7 +12,45 @@ class Black_Rook(Piece):
 
     #how the piece moves
     def move(self, board, from_x, from_y, to_x, to_y):
-        pass
+        piece = board.grid[from_y][from_x]
+        if piece and str(piece) == 'BR':
+            # Ensure it's a valid move
+            #makes sure theres not a piece in the way
+            if (from_x != to_x) and (from_y != to_y):
+                return Piece.invalid_move()
+            if (from_y == to_y):
+                change = from_x
+                #checks to see if we increment or decrement
+                if (change < to_x):
+                    value_change = 1
+                else:
+                    value_change = -1
+            else:
+                change = from_y #will be used to see to head toward to_y
+                #checks to see if we increment or decrement
+                if (change < to_y):
+                    value_change = 1
+                else:
+                    value_change = -1
+            while (from_x != to_x or from_y != to_y):
+                change += value_change
+                if (from_y == to_y):
+                    if (change == to_x) and (board.grid[to_y][to_x] is None):
+                        return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)           
+                    else:
+                        return Piece.invalid_move()
+                else:
+                    if (change == to_y) and (board.grid[to_y][to_x] is None):
+                        return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
+            
+                if (board.grid[change][from_x] is not None) :
+                    return Piece.invalid_move()
+                
+                elif (board.grid[from_y][change] is not None):
+                    return Piece.invalid_move()
+                   
+            return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
+            
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
         pass
