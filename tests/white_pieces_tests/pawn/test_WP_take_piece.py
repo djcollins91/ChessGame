@@ -10,9 +10,11 @@ class TestBoard(unittest.TestCase):
         self.initialize_pieces(self.board)
 
     def initialize_pieces(self, board):
-        # Create white and black pawns with specific classes
-        white_pawns = [White_Pawn('WP') for _ in range(8)]
-        black_pawns = [Black_Pawn('BP') for _ in range(8)]
+        board_width = range(Board.getWIDTH())
+        # Create white and black rooks with specific classes
+        # Create white and black rooks with specific classes
+        white_pawns = [White_Pawn('WR') for _ in board_width]
+        black_pawns = [Black_Pawn('BR') for _ in board_width]
 
         for i, pawn in enumerate(white_pawns):
             board.place_piece(pawn, i, 1)
