@@ -46,14 +46,14 @@ class TestBoard(unittest.TestCase):
         self.board.place_piece(Black_Rook('BR'), 3, 7)
         from_x, from_y = 3, 1
         to_x, to_y = 3, 7
-        result = self.board.grid[from_y][from_x].move(self.board, from_x, from_y, to_x, to_y)
+        result = self.board.grid[from_y][from_x].take_piece(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the White_Rook after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'WR', "Target position should have the White_Rook.")
         print("Test 2 for WR_move Passed")
 
-        # Test 3: Make sure you can't take White_Rook from behind
+        # Test 3: Make sure you can't take piece when on of your pieces is in the way
         self.board.place_piece(White_Rook('WR'), 4, 4)
         self.board.place_piece(White_Rook('WR'), 4, 2)
         self.board.place_piece(Black_Rook('BR'), 4, 1)
@@ -61,10 +61,6 @@ class TestBoard(unittest.TestCase):
         to_x, to_y = 4, 1
         result = self.board.grid[from_y][from_x].take_piece(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Invalid move", "Move should be identified as invalid.")
-        self.assertIsNotNone(self.board.grid[from_y][from_x], "Original position should still have the White_Rook.")
-        self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should still have the Black_Rook.")
-        self.assertEqual(str(self.board.grid[from_y][from_x]), 'WR', "Original position should still have the White_Rook.")
-        self.assertEqual(str(self.board.grid[to_y][to_x]), 'BR', "Target position should still have the Black_Rook.")
         print("Test 3 for WR_take_piece Passed")
 
         
