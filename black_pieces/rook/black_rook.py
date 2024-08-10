@@ -53,6 +53,7 @@ class Black_Rook(Piece):
             
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
-        pass
+        piece = 0
+        return Piece.invalid_move()
 
     
