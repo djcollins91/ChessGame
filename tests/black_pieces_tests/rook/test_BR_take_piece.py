@@ -10,23 +10,17 @@ class TestBoard(unittest.TestCase):
         self.initialize_pieces(self.board)
 
     def initialize_pieces(self, board):
-
         board_width = range(Board.getWIDTH())
-        # Create white and black rooks with specific classes
-        # Create white and black rooks with specific classes
         white_rooks = [White_Rook('WR') for _ in board_width]
         black_rooks = [Black_Rook('BR') for _ in board_width]
 
-        #places the white_rooks
+        # Place the white and black rooks
         for i, rook in enumerate(white_rooks):
-            if(i == 0) or (i == 7):
+            if i == 0 or i == 7:
                 board.place_piece(rook, i, 0)
-                
-        #places the black_rooks
         for i, rook in enumerate(black_rooks):
-            if (i == 0) or (i == 7):
+            if i == 0 or i == 7:
                 board.place_piece(rook, i, 7)
-
 
     def test_take_BR(self):
         # Test 1: Move Black_Rook testing if it can take White_Rook
@@ -35,30 +29,27 @@ class TestBoard(unittest.TestCase):
         from_x, from_y = 1, 1
         to_x, to_y = 2, 1
         result = self.board.grid[from_y][from_x].take_piece(self.board, from_x, from_y, to_x, to_y)
-        result = Black_Rook.take_piece(self, self.board, from_x, from_y, to_x, to_y)
+        self.assertEqual(result, "Valid move", "Black Rook should be able to take White Rook.")
         print("Test 1 for BR_take_piece Passed")
-
 
         # Test 2: Move White_Rook to an empty space (valid move)
         self.board.place_piece(Black_Rook('BR'), 3, 1)  # Place White Rook at (3, 1)
-        self.board.place_piece(White_Rook('WR'), 3, 1)  # Place White Rook at (3, 1)
+        self.board.place_piece(White_Rook('WR'), 3, 7)  # Place White Rook at (3, 1)
         from_x, from_y = 3, 1
         to_x, to_y = 3, 7
-        result = Black_Rook.take_piece(self, self.board, from_x, from_y, to_x, to_y)
+        result = self.board.grid[from_y][from_x].take_piece(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
-        print("Test 2 for BR_take_piece Passed")
+        print("Test 2 for WR_take_piece Passed")
 
-        # Test 3: Make sure you can't take piece when on of your pieces is in the way
-        self.board.place_piece(White_Rook('BR'), 4, 4)
-        self.board.place_piece(White_Rook('BR'), 4, 2)
-        self.board.place_piece(Black_Rook('WR'), 4, 1)
+        # Test 3: Make sure you can't take piece when one of your pieces is in the way
+        self.board.place_piece(Black_Rook('BR'), 4, 4)
+        self.board.place_piece(Black_Rook('BR'), 4, 2)
+        self.board.place_piece(White_Rook('WR'), 4, 1)
         from_x, from_y = 4, 4
         to_x, to_y = 4, 1
-        result = Black_Rook.take_piece(self, self.board, from_x, from_y, to_x, to_y)
+        result = self.board.grid[from_y][from_x].take_piece(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Invalid move", "Move should be identified as invalid.")
         print("Test 3 for BR_take_piece Passed")
-
-        
 
 if __name__ == '__main__':
     unittest.main()
