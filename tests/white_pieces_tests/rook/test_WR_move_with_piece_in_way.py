@@ -1,7 +1,8 @@
 import unittest
 from board import Board
+from helper import rooks, board_width
 from white_pieces.rook.white_rook import White_Rook
-from black_pieces.rook.black_rook import Black_Rook
+
 
 class TestBoard(unittest.TestCase):
 
@@ -10,22 +11,7 @@ class TestBoard(unittest.TestCase):
         self.initialize_pieces(self.board)
 
     def initialize_pieces(self, board):
-
-        board_width = range(Board.getWIDTH())
-        # Create white and black rooks with specific classes
-        # Create white and black rooks with specific classes
-        white_rooks = [White_Rook('WR') for _ in board_width]
-        black_rooks = [Black_Rook('BR') for _ in board_width]
-
-        #places the white_rooks
-        for i, rook in enumerate(white_rooks):
-            if(i == 0) or (i == 7):
-                board.place_piece(rook, i, 0)
-                
-        #places the black_rooks
-        for i, rook in enumerate(black_rooks):
-            if (i == 0) or (i == 7):
-                board.place_piece(rook, i, 7)
+        rooks(board, board_width)
 
     def test_valid_move_forward(self):
         # Test 7: Makes sure you can't move when piece is in the way

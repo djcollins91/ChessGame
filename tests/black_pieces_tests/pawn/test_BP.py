@@ -1,6 +1,6 @@
 import unittest
 from board import Board
-from white_pieces.pawn.white_pawn import White_Pawn
+from helper import pawns, board_width
 from black_pieces.pawn.black_pawn import Black_Pawn  # Import specific pawn classes
 
 class TestBoard(unittest.TestCase):
@@ -10,14 +10,7 @@ class TestBoard(unittest.TestCase):
         self.initialize_pieces(self.board)
 
     def initialize_pieces(self, board):
-        white_pawns = [White_Pawn('BP') for _ in range(8)]
-        black_pawns = [Black_Pawn('BP') for _ in range(8)]
-
-        for i, Piece in enumerate(white_pawns):
-            board.place_piece(Piece, i, 1)
-
-        for i, Piece in enumerate(black_pawns):
-            board.place_piece(Piece, i, 6)
+        pawns(board, board_width)
 
     def test_valid_move_forward(self):
         # Test 1: Move Piece forward by 1 square from initial position
