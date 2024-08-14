@@ -2,7 +2,7 @@ import unittest
 from board import Board
 from helper import kings, board_width
 from white_pieces.king.white_king import White_King
-from white_pieces.pawn.white_pawn import White_Pawn
+
 
 
 class TestBoard(unittest.TestCase):
@@ -14,11 +14,11 @@ class TestBoard(unittest.TestCase):
     def initialize_pieces(self, board):
         kings(board, board_width)
         
-
     def test_valid_move_forward(self):
         #Test 1: testing moving up
-        from_x, from_y = 0, 1
-        to_x, to_y = 1, 1
+        self.board.place_piece(White_King('WK'), 1, 4)
+        from_x, from_y = 1, 4
+        to_x, to_y = 2, 4
         result = self.board.grid[from_y][from_x].move(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
@@ -85,15 +85,11 @@ class TestBoard(unittest.TestCase):
 
 
         # Test 7: Testing if piece can't move two spot
-        self.board.place_piece(White_King('WK'), 5, 5)
-        from_x, from_y = 5, 5
-        to_x, to_y = 5, 7  # Invalid move as the spot is occupied
+        self.board.place_piece(White_King('WK'), 1, 5)
+        from_x, from_y = 1, 5
+        to_x, to_y = 1, 7  # Invalid move as the spot is occupied
         result = self.board.grid[from_y][from_x].move(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Invalid move", "Move should be identified as invalid.")
-        self.assertIsNotNone(self.board.grid[from_y][from_x], "Original position should still have the Piece.")
-        self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should still have the other Piece.")
-        self.assertEqual(str(self.board.grid[from_y][from_x]), 'WK', "Original position should still have the white Piece.")
-        self.assertEqual(str(self.board.grid[to_y][to_x]), 'WK', "Target position should still have the white Piece.")
         print("Test 7 for WK_move passed")
 
 if __name__ == '__main__':

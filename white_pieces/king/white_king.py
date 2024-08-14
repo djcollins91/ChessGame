@@ -14,12 +14,24 @@ class White_King(Piece):
     def move(self, board, from_x, from_y, to_x, to_y):
         piece = board.grid[from_y][from_x]
         if piece and str(piece) == 'WK':
-            # Ensure it's a valid move
-            if (from_y == 1 and to_y in [2, 3]) or (from_y != 1 and to_y == from_y + 1):
-                if from_x == to_x and board.grid[to_y][to_x] is None:
+            # Ensure it's a valid move when the Xs are equal
+            if (from_x == to_x) and (board.grid[to_y][to_x] is None):
+                #checks to make sure that the piece can only move one spot
+                if (to_y == from_y + 1) or (to_y == from_y - 1):
                     return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-        return Piece.invalid_move()
-    
+                else:
+                    return Piece.invalid_move()
+            
+            # Ensure it's a valid move when the Ys are equal
+            elif (from_y == to_y) and (board.grid[to_y][to_x] is None):
+                #checks to make sure that the piece can only move one spot
+                if (to_x == from_x + 1) or (to_x == from_x - 1):
+                    return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
+                else:
+                    return Piece.invalid_move()
+            else:
+                return Piece.invalid_move()
+        
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
         pass
