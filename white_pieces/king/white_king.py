@@ -15,22 +15,14 @@ class White_King(Piece):
         piece = board.grid[from_y][from_x]
         if piece and str(piece) == 'WK':
             # Ensure it's a valid move when the Xs are equal
-            if (from_x == to_x) and (board.grid[to_y][to_x] is None):
+            if (board.grid[to_y][to_x] is None):
                 #checks to make sure that the piece can only move one spot
-                if (to_y == from_y + 1) or (to_y == from_y - 1):
+                if (to_y == from_y + 1) or (to_y == from_y - 1) or (to_x == from_x + 1) or (to_x == from_x - 1):
                     return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
                 else:
                     return Piece.invalid_move()
-            
-            # Ensure it's a valid move when the Ys are equal
-            elif (from_y == to_y) and (board.grid[to_y][to_x] is None):
-                #checks to make sure that the piece can only move one spot
-                if (to_x == from_x + 1) or (to_x == from_x - 1):
-                    return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-                else:
-                    return Piece.invalid_move()
-            else:
-                return Piece.invalid_move()
+            else:#if from_x and from_y are occupied return invalid
+                return Piece.invalid_move()    
         
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):

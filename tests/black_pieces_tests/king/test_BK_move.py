@@ -59,14 +59,15 @@ class TestBoard(unittest.TestCase):
         print("Test 4 for BK_move passed")
 
         
-        # Test 5: Testing to see piece can't move diagonal
+        # Test 5: Testing to see piece can move diagonal
         self.board.place_piece(Black_King('BK'), 4, 4)
         from_x, from_y = 4, 4
         to_x, to_y = 5, 5 
         result = self.board.grid[from_y][from_x].move(self.board, from_x, from_y, to_x, to_y)
-        self.assertEqual(result, "Invalid move", "Move should be identified as invalid.")
-        self.assertIsNotNone(self.board.grid[from_y][from_x], "Original position should still have the Piece.")
-        self.assertIsNone(self.board.grid[to_y][to_x], "Target position should be empty.")
+        self.assertEqual(result, "Valid move", "Move should be identified as valid.")
+        self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
+        self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the Piece after the move.")
+        self.assertEqual(str(self.board.grid[to_y][to_x]), 'BK', "Target position should have the white Piece.")
         print("Test 5 for BK_move passed")
 
         # Test 6: Move Piece to an occupied spot (invalid move)
