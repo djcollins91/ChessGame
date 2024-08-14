@@ -12,12 +12,10 @@ class White_Queen(Piece):
 
     #how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
-        
         piece = board.grid[from_y][from_x]
         change_x = from_x
         #if we don't move on the x cordinate
         value_change_x = 0
-
         change_y = from_y
         #if we don't move on the y cordinate
         value_change_y = 0
