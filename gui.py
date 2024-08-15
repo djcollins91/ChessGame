@@ -22,7 +22,7 @@ class GameBoard(QMainWindow):
         central_widget.setLayout(grid_layout)
 
         # Define the size of each square
-        square_size = 50
+        SQUARE_SIZE = 50
 
         # Sample board setup: dictionary with piece positions
         board_setup = { 
@@ -91,7 +91,7 @@ class GameBoard(QMainWindow):
                 square = QWidget()
                 color = white if (row + col) % 2 == 0 else blue
                 square.setStyleSheet(f"background-color: {color.name()};")
-                square.setFixedSize(square_size, square_size)
+                square.setFixedSize(SQUARE_SIZE, SQUARE_SIZE)
                 
                 # Add the square to the grid layout
                 grid_layout.addWidget(square, row, col)
@@ -127,9 +127,9 @@ class GameBoard(QMainWindow):
         image_file = piece_images.get(piece, 'default.png')
         pixmap = QPixmap(image_file)
     
-        # Resize the pixmap to fit the square (square_size x square_size)
-        square_size = 50  # You might want to make this a class attribute if it's used elsewhere
-        pixmap = pixmap.scaled(square_size, square_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        # Resize the pixmap to fit the square (SQUARE_SIZE x SQUARE_SIZE)
+        SQUARE_SIZE = 50  # You might want to make this a class attribute if it's used elsewhere
+        pixmap = pixmap.scaled(SQUARE_SIZE, SQUARE_SIZE, Qt.KeepAspectRatio, Qt.SmoothTransformation)
     
         return pixmap
 
