@@ -1,16 +1,16 @@
-from black_pieces.bishop.black_bishop import Black_Bishop
-from black_pieces.king.black_king import Black_King
-from black_pieces.knight.black_knight import Black_Knight
-from black_pieces.pawn.black_pawn import Black_Pawn
-from black_pieces.queen.black_queen import Black_Queen
-from black_pieces.rook.black_rook import Black_Rook
+from Pieces.bishops.black.black_bishop import Black_Bishop
+from Pieces.kings.black.black_king import Black_King
+from Pieces.knights.black.black_knight import Black_Knight
+from Pieces.pawns.black.black_pawn import Black_Pawn
+from Pieces.queens.black.black_queen import Black_Queen
+from Pieces.queens.white.white_queen import White_Queen
+from Pieces.rooks.black.black_rook import Black_Rook
 from board import Board
-from white_pieces.bishop.white_bishop import White_Bishop
-from white_pieces.king.white_king import White_King
-from white_pieces.knight.white_knight import White_Knight
-from white_pieces.pawn.white_pawn import White_Pawn
-from white_pieces.queen.white_queen import White_Queen
-from white_pieces.rook.white_rook import White_Rook
+from Pieces.bishops.white.white_bishop import White_Bishop
+from Pieces.kings.white.white_king import White_King
+from Pieces.knights.white.white_knight import White_Knight
+from Pieces.pawns.white.white_pawn import White_Pawn
+from Pieces.rooks.white.white_rook import White_Rook
 
 
 board_width = range(Board.getWIDTH())

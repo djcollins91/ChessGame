@@ -1,7 +1,7 @@
 import unittest
 from board import Board
 from helper import kings, board_width
-from white_pieces.king.white_king import White_King
+from Pieces.kings.white.white_king import White_King
 
 
 

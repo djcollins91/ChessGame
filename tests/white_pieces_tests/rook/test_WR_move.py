@@ -1,7 +1,7 @@
 import unittest
 from board import Board
 from helper import rooks, board_width
-from white_pieces.rook.white_rook import White_Rook
+from Pieces.rooks.white.white_rook import White_Rook
 
 class TestBoard(unittest.TestCase):
 

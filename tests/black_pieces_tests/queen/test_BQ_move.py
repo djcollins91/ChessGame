@@ -1,5 +1,5 @@
 import unittest
-from black_pieces.queen.black_queen import Black_Queen
+from Pieces.queen.black_queen import Black_Queen
 from board import Board
 from helper import  board_width, queens
 

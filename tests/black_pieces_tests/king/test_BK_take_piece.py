@@ -1,8 +1,8 @@
 import unittest
 from board import Board
 from helper import kings, board_width
-from white_pieces.king.white_king import White_King
-from black_pieces.king.black_king import Black_King
+from Pieces.kings.white.white_king import White_King
+from Pieces.kings.black.black_king import Black_King
 
 class TestBoard(unittest.TestCase):
 

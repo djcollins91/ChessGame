@@ -1,7 +1,8 @@
 import unittest
+from Pieces.queens.white.white_queen import White_Queen
 from board import Board
 from helper import  board_width, queens
-from white_pieces.queen.white_queen import White_Queen
+
 
 class TestBoard(unittest.TestCase):
 

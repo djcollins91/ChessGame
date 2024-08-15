@@ -1,7 +1,7 @@
 import unittest
 from board import Board
 from helper import pawns, board_width
-from black_pieces.pawn.black_pawn import Black_Pawn  # Import specific pawn classes
+from Pieces.pawns.black.black_pawn import Black_Pawn  # Import specific pawn classes
 
 class TestBoard(unittest.TestCase):
 
