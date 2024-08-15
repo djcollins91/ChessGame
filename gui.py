@@ -2,14 +2,17 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QWidget, QLabel
 from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtCore import Qt
+from helper import board_width
 
 class GameBoard(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        GAME_TITLE = "Chess"
+        GAME_WIDTH = 500
+        GAME_HEIGHT = 500
          # Set up the main window
-        self.setWindowTitle("Chess")
-        self.setFixedSize(500, 500)  # Fixed window size to prevent stretching
+        self.setWindowTitle(GAME_TITLE)
+        self.setFixedSize(GAME_WIDTH, GAME_HEIGHT)  # Fixed window size to prevent stretching
 
         # Set up the central widget and layout
         central_widget = QWidget(self)
@@ -82,8 +85,8 @@ class GameBoard(QMainWindow):
         white = QColor(255, 255, 255)
         blue = QColor(173, 216, 230)
         # Create the 8x8 grid of squares
-        for row in range(8):
-            for col in range(8):
+        for row in board_width:
+            for col in board_width:
                 # Create a new widget for each square
                 square = QWidget()
                 color = white if (row + col) % 2 == 0 else blue
