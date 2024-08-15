@@ -1,0 +1,5 @@
+row,col,piece
+0,0,WRook
+0,7,BRook
+1,0,WP
+6,7,BPawn
