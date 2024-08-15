@@ -1,8 +1,8 @@
-from Pieces.bishops.bishop_helper import check_to_see_direction
+from Pieces.piece_helpers.helpers import check_to_see_direction_Q_B
 from piece import Piece
 
 class White_Bishop(Piece):
-    STARTING_PIECES = 1
+    STARTING_PIECES = 2
     taken_pieces = 0
 
     def __init__(self, name):
@@ -14,10 +14,8 @@ class White_Bishop(Piece):
     #how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
         piece = board.grid[from_y][from_x]
-        change_x = from_x
-        change_y = from_y
         
-        value_change_y, value_change_x = check_to_see_direction(change_x, change_y,to_x, to_y)
+        change_y, change_x, value_change_y, value_change_x = check_to_see_direction_Q_B(from_x, from_y, to_x, to_y)
         
         if piece and str(piece) == 'WB':
             # Ensure it's a valid move

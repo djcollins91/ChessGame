@@ -1,4 +1,6 @@
-def check_to_see_direction(change_x, change_y, to_x, to_y):
+def check_to_see_direction_Q_B(from_x, from_y, to_x, to_y):
+        change_x = from_x
+        change_y = from_y
         #if we don't move on the x cordinate
         value_change_x = 0
         #if we don't move on the y cordinate
@@ -16,4 +18,4 @@ def check_to_see_direction(change_x, change_y, to_x, to_y):
         if (change_y > to_y):
             value_change_y = -1
 
-        return value_change_y, value_change_x
+        return change_y, change_x, value_change_y, value_change_x

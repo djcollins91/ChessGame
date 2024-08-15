@@ -1,7 +1,9 @@
 import unittest
+
 from Pieces.bishops.white.white_bishop import White_Bishop
 from board import Board
-from helper import  bishops, board_width
+from helper import bishops, board_width
+
 
 
 class TestBoard(unittest.TestCase):
