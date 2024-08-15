@@ -7,9 +7,9 @@ class GameBoard(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        # Set up the main window
-        self.setWindowTitle("8x8 Game Board")
-        self.setGeometry(100, 100, 400, 400)
+         # Set up the main window
+        self.setWindowTitle("Chess")
+        self.setFixedSize(500, 500)  # Fixed window size to prevent stretching
 
         # Set up the central widget and layout
         central_widget = QWidget(self)
@@ -32,24 +32,52 @@ class GameBoard(QMainWindow):
             (1,5): 'WP',
             (1,6): 'WP',
             (1,7): 'WP',
-            (1,8): 'WP',
+        
             #white rooks
             (0, 0): 'WR',
             (0, 7): 'WR',
+
             #white kings
             (0,4): 'WK',
+
             #white queens
             (0,3): 'WQ',
+
             #white bishops
             (0,2): 'WB',
             (0,5): 'WB',
+
             #white knights
             (0,1): 'WN',
-            (0,6): 'WN'
+            (0,6): 'WN',
 
-
+            #black pawns
+            (6,0): 'BP',
+            (6,1): 'BP',
+            (6,2): 'BP',
+            (6,3): 'BP',
+            (6,4): 'BP',
+            (6,5): 'BP',
+            (6,6): 'BP',
+            (6,7): 'BP',
             
-            # Add more pieces as needed
+            #black rooks
+            (7, 0): 'BR',
+            (7, 7): 'BR',
+
+            #black kings
+            (7,4): 'BK',
+
+            #black queens
+            (7,3): 'BQ',
+
+            #white bishops
+            (7,2): 'BB',
+            (7,5): 'BB',
+
+            #black knights
+            (7,1): 'BN',
+            (7,6): 'BN',
         }
         white = QColor(255, 255, 255)
         blue = QColor(173, 216, 230)
@@ -79,14 +107,19 @@ class GameBoard(QMainWindow):
     def get_piece_pixmap(self, piece):
         # Map the piece type to an image file
         piece_images = {
-            'WR': 'piece_images/WR.png',
-            'WP': 'piece_images/WP.png',
-            'WK': 'piece_images/WK.png',
-            'WQ': 'piece_images/WQ.png',
-            'WB': 'piece_images/WB.png',
-            'WN': 'piece_images/WN.png'
+            'WR': 'piece_images/white/WR.png',
+            'WP': 'piece_images/white/WP.png',
+            'WK': 'piece_images/white/WK.png',
+            'WQ': 'piece_images/white/WQ.png',
+            'WB': 'piece_images/white/WB.png',
+            'WN': 'piece_images/white/WN.png',
+            'BP': 'piece_images/black/BP.png',
+            'BR': 'piece_images/black/BR.png',
+            'BK': 'piece_images/black/BK.png',
+            'BQ': 'piece_images/black/BQ.png',
+            'BB': 'piece_images/black/BB.png',
+            'BN': 'piece_images/black/BN.png'
 
-            # Add more mappings for other pieces
         }
         image_file = piece_images.get(piece, 'default.png')
         pixmap = QPixmap(image_file)
