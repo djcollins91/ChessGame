@@ -10,16 +10,11 @@ class Black_Queen(Piece):
     def __str__(self):
         return self.name
 
-    #how the piece move
-    def move(self, board, from_x, from_y, to_x, to_y):
-        piece = board.grid[from_y][from_x]
-        change_x = from_x
+    def check_to_see_direction(change_x, change_y, to_x, to_y):
         #if we don't move on the x cordinate
         value_change_x = 0
-        change_y = from_y
         #if we don't move on the y cordinate
         value_change_y = 0
-
         #when we do move on the spefic coordinates
         if (change_x < to_x):
             value_change_x = 1
@@ -32,6 +27,15 @@ class Black_Queen(Piece):
 
         if (change_y > to_y):
             value_change_y = -1
+
+        return value_change_y, value_change_x
+    #how the piece move
+    def move(self, board, from_x, from_y, to_x, to_y):
+        piece = board.grid[from_y][from_x]
+        change_x = from_x
+        change_y = from_y
+
+        value_change_y, value_change_x = Black_Queen.check_to_see_direction(change_x, change_y,to_x, to_y)
 
         if piece and str(piece) == 'BQ':
             if (board.grid[to_y][to_x] is None):
@@ -51,24 +55,9 @@ class Black_Queen(Piece):
         piece = board.grid[from_y][from_x]
         target = board.grid[to_y][to_x]
         change_x = from_x
-        #if we don't move on the x cordinate
-        value_change_x = 0
+        
         change_y = from_y
-        #if we don't move on the y cordinate
-        value_change_y = 0
-
-        #when we do move on the spefic coordinates
-        if (change_x < to_x):
-            value_change_x = 1
-
-        if (change_x > to_x):
-            value_change_x = -1
-
-        if change_y < to_y:  
-            value_change_y = 1
-
-        if (change_y > to_y):
-            value_change_y = -1
+        value_change_y, value_change_x = Black_Queen.check_to_see_direction(change_x, change_y,to_x, to_y)
 
         if piece and str(piece) == 'BQ':
             #makes sure it's a valid piece to take
