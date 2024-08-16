@@ -1,7 +1,8 @@
+from Pieces.knights.knight_helper import exploration
 from piece import Piece
 
 class Black_Knight(Piece):
-    STARTING_PIECES = 1
+    STARTING_PIECES = 2
     taken_pieces = 0
 
     def __init__(self, name):
@@ -12,7 +13,83 @@ class Black_Knight(Piece):
 
     #how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
-        pass
+        piece = board.grid[from_y][from_x]
+        if (piece and str(piece) == 'BN') and (board.grid[to_y][to_y] is None):
+            # Ensure it's a valid move
+            
+            if ((to_y - from_y) == 2) and ((to_x - from_x) == 1):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y + 1][from_x]
+                second_option1 = board.grid[from_y + 2][from_x]
+                first_option2 = board.grid[from_y][from_x +1]
+                second_option2 = board.grid[from_y+1][from_x + 1]
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+            #when the x-axis goes left
+            elif ((to_y - from_y) == 2) and ((to_x - from_x) == -1):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y + 1][from_x]
+                second_option1 = board.grid[from_y + 2][from_x]
+                first_option2 = board.grid[from_y][from_x -1]
+                second_option2 = board.grid[from_y+1][from_x - 1]
+                #exploring all the possible options
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+            #when the y-axis goes doBN and the x goes right
+            elif ((to_y - from_y) == -2) and ((to_x - from_x) == 1):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y - 1][from_x]
+                second_option1 = board.grid[from_y - 2][from_x]
+                first_option2 = board.grid[from_y][from_x +1]
+                second_option2 = board.grid[from_y-1][from_x + 1]
+                #exploring all the possible options
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+            
+            #when the y-axis goes doBN and the x goes left
+            elif ((to_y - from_y) == -2) and ((to_x - from_x) == -1):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y - 1][from_x]
+                second_option1 = board.grid[from_y - 2][from_x]
+                first_option2 = board.grid[from_y][from_x -1]
+                second_option2 = board.grid[from_y-1][from_x - 1]
+                #exploring all the possible options
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+            #when the x-axis goes right 2 and the y goes up 1
+            elif ((to_y - from_y) == 1) and ((to_x - from_x) == 2):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y][from_x + 1]
+                second_option1 = board.grid[from_y][from_x + 2]
+                first_option2 = board.grid[from_y + 1][from_x]
+                second_option2 = board.grid[from_y + 1][from_x + 1]
+                #exploring all the possible options
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+            #when the x-axis goes right 2 and the y goes doBN 1
+            elif ((to_y - from_y) == - 1) and ((to_x - from_x) == 2):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y][from_x + 1]
+                second_option1 = board.grid[from_y][from_x + 2]
+                first_option2 = board.grid[from_y - 1][from_x]
+                second_option2 = board.grid[from_y - 1][from_x + 1]
+                #exploring all the possible options
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+            #when the x-axis goes left 2 and the y goes up 1
+            elif ((to_y - from_y) ==  1) and ((to_x - from_x) == -2):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y][from_x - 1]
+                second_option1 = board.grid[from_y][from_x - 2]
+                first_option2 = board.grid[from_y + 1][from_x]
+                second_option2 = board.grid[from_y + 1][from_x - 1]
+                #exploring all the possible options
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+            #when the x-axis goes left 2 and the y goes doBN 1
+            elif ((to_y - from_y) == - 1) and ((to_x - from_x) == -2):
+                #checking the first move possible move
+                first_option1 = board.grid[from_y][from_x - 1]
+                second_option1 = board.grid[from_y][from_x - 2]
+                first_option2 = board.grid[from_y - 1][from_x]
+                second_option2 = board.grid[from_y - 1][from_x - 1]
+                #exploring all the possible options
+                return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
+
+        return Piece.invalid_move()
     
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
