@@ -9,11 +9,17 @@ class White_Pawn(Piece):
 
     def __str__(self):
         return self.name
-
+    _piece_str = "WP"
+    _target_str = "B"
+    def get_piece_str():
+        return White_Pawn._piece_str
+    
+    def get_target_str():
+        return White_Pawn._target_str
     #how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
         piece = board.grid[from_y][from_x]
-        if piece and str(piece) == 'WP':
+        if piece and str(piece) == White_Pawn._piece_str:
             # Ensure it's a valid move
             if (from_y == 1 and to_y in [2, 3]) or (from_y != 1 and to_y == from_y + 1):
                 if from_x == to_x and board.grid[to_y][to_x] is None:
@@ -25,9 +31,9 @@ class White_Pawn(Piece):
         piece = board.grid[from_y][from_x]
         target = board.grid[to_y][to_x]
         
-        if piece and str(piece) == 'WP':
+        if piece and str(piece) == White_Pawn._piece_str:
             # Ensure it's a diagonal move and there's a black piece to capture
-            if (abs(from_x - to_x) == 1 and to_y - from_y == 1) and target and str(target).startswith('B'):
+            if (abs(from_x - to_x) == 1 and to_y - from_y == 1) and target and str(target).startswith(White_Pawn._target_str):
                 return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
         return Piece.invalid_move()
 

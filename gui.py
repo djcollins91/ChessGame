@@ -2,6 +2,18 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QWidget, QLabel
 from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtCore import Qt
+from Pieces.bishops.black.black_bishop import Black_Bishop
+from Pieces.bishops.white.white_bishop import White_Bishop
+from Pieces.kings.black.black_king import Black_King
+from Pieces.kings.white.white_king import White_King
+from Pieces.knights.black.black_knight import Black_Knight
+from Pieces.knights.white.white_knight import White_Knight
+from Pieces.pawns.black.black_pawn import Black_Pawn
+from Pieces.pawns.white.white_pawn import White_Pawn
+from Pieces.queens.black.black_queen import Black_Queen
+from Pieces.queens.white.white_queen import White_Queen
+from Pieces.rooks.black.black_rook import Black_Rook
+from Pieces.rooks.white.white_rook import White_Rook
 from helper import board_width
 
 class GameBoard(QMainWindow):
@@ -27,62 +39,62 @@ class GameBoard(QMainWindow):
         # Sample board setup: dictionary with piece positions
         board_setup = { 
             #white pawns   
-            (1,0): 'WP',
-            (1,1): 'WP',
-            (1,2): 'WP',
-            (1,3): 'WP',
-            (1,4): 'WP',
-            (1,5): 'WP',
-            (1,6): 'WP',
-            (1,7): 'WP',
+            (1,0): White_Pawn.get_piece_str(),
+            (1,1): White_Pawn.get_piece_str(),
+            (1,2): White_Pawn.get_piece_str(),
+            (1,3): White_Pawn.get_piece_str(),
+            (1,4): White_Pawn.get_piece_str(),
+            (1,5): White_Pawn.get_piece_str(),
+            (1,6): White_Pawn.get_piece_str(),
+            (1,7): White_Pawn.get_piece_str(),
         
             #white rooks
-            (0, 0): 'WR',
-            (0, 7): 'WR',
+            (0, 0): White_Rook.get_piece_str(),
+            (0, 7): White_Rook.get_piece_str(),
 
             #white kings
-            (0,4): 'WK',
+            (0,4): White_King.get_piece_str(),
 
             #white queens
-            (0,3): 'WQ',
+            (0,3): White_Queen.get_piece_str(),
 
             #white bishops
-            (0,2): 'WB',
-            (0,5): 'WB',
+            (0,2): White_Bishop.get_piece_str(),
+            (0,5): White_Bishop.get_piece_str(),
 
             #white knights
-            (0,1): 'WN',
-            (0,6): 'WN',
+            (0,1): White_Knight.get_piece_str(),
+            (0,6): White_Knight.get_piece_str(),
             
             
 
             #black pawns
-            (6,0): 'BP',
-            (6,1): 'BP',
-            (6,2): 'BP',
-            (6,3): 'BP',
-            (6,4): 'BP',
-            (6,5): 'BP',
-            (6,6): 'BP',
-            (6,7): 'BP',
+            (6,0): Black_Pawn.get_piece_str(),
+            (6,1): Black_Pawn.get_piece_str(),
+            (6,2): Black_Pawn.get_piece_str(),
+            (6,3): Black_Pawn.get_piece_str(),
+            (6,4): Black_Pawn.get_piece_str(),
+            (6,5): Black_Pawn.get_piece_str(),
+            (6,6): Black_Pawn.get_piece_str(),
+            (6,7): Black_Pawn.get_piece_str(),
             
             #black rooks
-            (7, 0): 'BR',
-            (7, 7): 'BR',
+            (7, 0): Black_Rook.get_piece_str(),
+            (7, 7): Black_Rook.get_piece_str(),
 
             #black kings
-            (7,4): 'BK',
+            (7,4): Black_King.get_piece_str(),
 
             #black queens
-            (7,3): 'BQ',
+            (7,3): Black_Queen.get_piece_str(),
 
             #white bishops
-            (7,2): 'BB',
-            (7,5): 'BB',
+            (7,2): Black_Bishop.get_piece_str(),
+            (7,5): Black_Bishop.get_piece_str(),
 
             #black knights
-            (7,1): 'BN',
-            (7,6): 'BN',
+            (7,1): Black_Knight.get_piece_str(),
+            (7,6): Black_Knight.get_piece_str(),
         }
         white = QColor(255, 255, 255)
         blue = QColor(173, 216, 230)
@@ -112,18 +124,18 @@ class GameBoard(QMainWindow):
     def get_piece_pixmap(self, piece):
         # Map the piece type to an image file
         piece_images = {
-            'WR': 'piece_images/white/WR.png',
-            'WP': 'piece_images/white/WP.png',
-            'WK': 'piece_images/white/WK.png',
-            'WQ': 'piece_images/white/WQ.png',
-            'WB': 'piece_images/white/WB.png',
-            'WN': 'piece_images/white/WN.png',
-            'BP': 'piece_images/black/BP.png',
-            'BR': 'piece_images/black/BR.png',
-            'BK': 'piece_images/black/BK.png',
-            'BQ': 'piece_images/black/BQ.png',
-            'BB': 'piece_images/black/BB.png',
-            'BN': 'piece_images/black/BN.png'
+            White_Rook.get_piece_str(): 'piece_images/white/WR.png',
+            White_Pawn.get_piece_str(): 'piece_images/white/WP.png',
+            White_King.get_piece_str(): 'piece_images/white/WK.png',
+            White_Queen.get_piece_str(): 'piece_images/white/WQ.png',
+            White_Bishop.get_piece_str(): 'piece_images/white/WB.png',
+            White_Knight.get_piece_str(): 'piece_images/white/WN.png',
+            Black_Pawn.get_piece_str(): 'piece_images/black/BP.png',
+            Black_Rook.get_piece_str(): 'piece_images/black/BR.png',
+            Black_King.get_piece_str(): 'piece_images/black/BK.png',
+            Black_Queen.get_piece_str(): 'piece_images/black/BQ.png',
+            Black_Bishop.get_piece_str(): 'piece_images/black/BB.png',
+            Black_Knight.get_piece_str(): 'piece_images/black/BN.png'
 
         }
         image_file = piece_images.get(piece, 'default.png')

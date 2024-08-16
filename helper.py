@@ -18,8 +18,8 @@ board_width = range(Board.getWIDTH())
 #creates the pawns
 def pawns(board, board_width):
     # Create white and black pawns with specific classes
-    white_pawns = [White_Pawn('WP') for _ in board_width]
-    black_pawns = [Black_Pawn('BP') for _ in board_width]
+    white_pawns = [White_Pawn(White_Pawn.get_piece_str()) for _ in board_width]
+    black_pawns = [Black_Pawn(Black_Pawn.get_piece_str()) for _ in board_width]
 
     #places the white_pawns
     for i, pawn in enumerate(white_pawns):
@@ -32,8 +32,8 @@ def pawns(board, board_width):
 # creates the rooks
 def rooks(board, board_width):
     # Create white and black rooks with specific classes
-    white_rooks = [White_Rook('WR') for _ in board_width]
-    black_rooks = [Black_Rook('BR') for _ in board_width]
+    white_rooks = [White_Rook(White_Rook.get_piece_str()) for _ in board_width]
+    black_rooks = [Black_Rook(Black_Rook.get_piece_str()) for _ in board_width]
 
     #places the white_rooks
     for i, rook in enumerate(white_rooks):
@@ -48,8 +48,8 @@ def rooks(board, board_width):
 #creates the kings
 def kings(board, board_width):
     # Create white and black queens with specific classes
-    white_kings = [White_King('WK') for _ in board_width]
-    black_kings = [Black_King('BK') for _ in board_width]
+    white_kings = [White_King(White_King.get_piece_str()) for _ in board_width]
+    black_kings = [Black_King(Black_King.get_piece_str()) for _ in board_width]
 
     #places the white_kings
     for i, king in enumerate(white_kings):
@@ -64,8 +64,8 @@ def kings(board, board_width):
 #creates the queenss
 def queens(board, board_width):
     # Create white and black queens with specific classes
-    white_queens = [White_Queen('WQ') for _ in board_width]
-    black_queens = [Black_Queen('BQ') for _ in board_width]
+    white_queens = [White_Queen(White_Queen.get_piece_str()) for _ in board_width]
+    black_queens = [Black_Queen(Black_Queen.get_piece_str()) for _ in board_width]
 
     #places the white_queens
     for i, queen in enumerate(white_queens):
@@ -80,8 +80,8 @@ def queens(board, board_width):
 #creates the bishops
 def bishops(board, board_width):
     # Create white and black bishops with specific classes
-    white_bishops = [White_Bishop('WB') for _ in board_width]
-    black_bishops = [Black_Bishop('BB') for _ in board_width]
+    white_bishops = [White_Bishop(White_Bishop.get_piece_str()) for _ in board_width]
+    black_bishops = [Black_Bishop(Black_Bishop.get_piece_str()) for _ in board_width]
 
     #places the white_bishops
     for i, bishop in enumerate(white_bishops):
@@ -96,8 +96,8 @@ def bishops(board, board_width):
 #creates the knights
 def knights(board, board_width):
     # Create white and black rooks with specific classes
-    white_knights = [White_Knight('WN') for _ in board_width]
-    black_knights = [Black_Knight('BN') for _ in board_width]
+    white_knights = [White_Knight(White_Knight.get_piece_str()) for _ in board_width]
+    black_knights = [Black_Knight(Black_Knight.get_piece_str()) for _ in board_width]
 
     #places the white_knights
     for i, knight in enumerate(white_knights):
