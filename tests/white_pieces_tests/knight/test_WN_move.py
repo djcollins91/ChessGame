@@ -48,8 +48,8 @@ class TestBoard(unittest.TestCase):
 
         # Test 4: Testing if piece can move down and to the left
         self.board.place_piece(White_Knight('WN'), 5, 5)
-        from_x, from_y = 4, 3
-        to_x, to_y = 4, 1
+        from_x, from_y = 5, 5
+        to_x, to_y = 4, 3
         result = self.board.grid[from_y][from_x].move(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")

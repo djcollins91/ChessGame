@@ -24,13 +24,17 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'WN', "Target position should have the white Piece.")
         print("Test 7 for WN_move passed")
 
-         # Test 7:Testing if piece can move 2 to the left and down
+         # Test 8:Testing if piece can move 2 to the left and down
         self.board.place_piece(White_Knight('WN'), 5, 5)
         from_x, from_y = 5, 5
-        to_x, to_y = 5, 4
+        to_x, to_y = 3, 4
         result = self.board.grid[from_y][from_x].move(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, "Valid move", "Move should be identified as valid.")
         self.assertIsNone(self.board.grid[from_y][from_x], "Original position should be empty after the move.")
         self.assertIsNotNone(self.board.grid[to_y][to_x], "Target position should have the Piece after the move.")
         self.assertEqual(str(self.board.grid[to_y][to_x]), 'WN', "Target position should have the white Piece.")
-        print("Test 7 for WN_move passed")
+        print("Test 8 for WN_move passed")
+
+
+if __name__ == '__main__':
+    unittest.main()
