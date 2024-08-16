@@ -1,3 +1,4 @@
+from Pieces.knights.knight_helper import exploration
 from piece import Piece
 
 class White_Knight(Piece):
@@ -23,15 +24,7 @@ class White_Knight(Piece):
                     second_option1 = board.grid[from_y + 2][from_x]
                     first_option2 = board.grid[from_y][from_x +1]
                     second_option2 = board.grid[from_y+1][from_x + 1]
-                    if (first_option1 is None) or (first_option2 is None):
-                        #investigating first option 1
-                        if (first_option1 is None):
-                            if (second_option1 is None): #it's a valid move
-                                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-                        #when firstoption_1 doesn't workout 
-                        elif (first_option2 is None):
-                            if (second_option2 is None):
-                                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
+                    return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
                 #when the x-axis goes left
                 elif ((to_y - from_y) == 2) and ((to_x - from_x) == -1):
                     #checking the first move possible move
@@ -39,15 +32,8 @@ class White_Knight(Piece):
                     second_option1 = board.grid[from_y + 2][from_x]
                     first_option2 = board.grid[from_y][from_x -1]
                     second_option2 = board.grid[from_y+1][from_x - 1]
-                    if (first_option1 is None) or (first_option2 is None):
-                        #investigating first option 1
-                        if (first_option1 is None):
-                            if (second_option1 is None): #it's a valid move
-                                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-                        #when firstoption_1 doesn't workout 
-                        elif (first_option2 is None):
-                            if (second_option2 is None):
-                                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
+                    #exploring all the possible options
+                    return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
                 #when the y-axis goes down and the x goes right
                 elif ((to_y - from_y) == -2) and ((to_x - from_x) == 1):
                     #checking the first move possible move
@@ -55,16 +41,8 @@ class White_Knight(Piece):
                     second_option1 = board.grid[from_y - 2][from_x]
                     first_option2 = board.grid[from_y][from_x +1]
                     second_option2 = board.grid[from_y-1][from_x + 1]
-                    if (first_option1 is None) or (first_option2 is None):
-                        #investigating first option 1
-                        if (first_option1 is None):
-                            if (second_option1 is None): #it's a valid move
-                                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-                        #when firstoption_1 doesn't workout 
-                        elif (first_option2 is None):
-                            if (second_option2 is None):
-                                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-            
+                    #exploring all the possible options
+                    return exploration(first_option1,first_option2,second_option1,second_option2,piece,board,from_x,from_y,to_x,to_y)
 
 
         return Piece.invalid_move()
