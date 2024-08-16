@@ -53,6 +53,8 @@ class GameBoard(QMainWindow):
             #white knights
             (0,1): 'WN',
             (0,6): 'WN',
+            
+            
 
             #black pawns
             (6,0): 'BP',
