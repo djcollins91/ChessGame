@@ -1,7 +1,6 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout, QWidget, QLabel
+from PyQt5.QtWidgets import  QMainWindow, QGridLayout, QWidget
 from PyQt5.QtGui import QPixmap, QColor
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import Qt
 
 # Assuming all the piece classes and Board class are properly imported here
 from Pieces.bishops.black.black_bishop import Black_Bishop
@@ -16,46 +15,9 @@ from Pieces.queens.black.black_queen import Black_Queen
 from Pieces.queens.white.white_queen import White_Queen
 from Pieces.rooks.black.black_rook import Black_Rook
 from Pieces.rooks.white.white_rook import White_Rook
+from board import Board
+from clickable_label import ClickableLabel
 
-class Board:
-    WIDTH = 8
-    LENGTH = 8
-
-    def __init__(self):
-        # Initialize the board with None to indicate empty cells
-        self.grid = [[None for _ in range(Board.WIDTH)] for _ in range(Board.LENGTH)]
-
-    @staticmethod
-    def getWIDTH():
-        return Board.WIDTH
-
-    @staticmethod
-    def getLENGTH():
-        return Board.LENGTH
-
-    def place_piece(self, piece, x, y):
-        if 0 <= x < self.WIDTH and 0 <= y < self.LENGTH:
-            self.grid[y][x] = piece
-        else:
-            raise ValueError("Position out of bounds")
-
-    def __str__(self):
-        board_str = ""
-        for row in self.grid:
-            board_str += " ".join([str(cell) if cell else '.' for cell in row]) + "\n"
-        return board_str
-
-class ClickableLabel(QLabel):
-    clicked = pyqtSignal(int, int)  # Signal to emit the position of the clicked piece
-
-    def __init__(self, row, col, parent=None):
-        super().__init__(parent)
-        self.row = row
-        self.col = col
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.clicked.emit(self.row, self.col)  # Emit the row and column when clicked
 
 class GameBoard(QMainWindow):
     def __init__(self):
@@ -171,7 +133,3 @@ class GameBoard(QMainWindow):
             print(f"Clicked on {piece} at position ({row}, {col})")
             # Add your move logic here
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    board = GameBoard()
-    sys.exit(app.exec_())
