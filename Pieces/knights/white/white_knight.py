@@ -1,4 +1,4 @@
-from Pieces.knights.knight_helper import exploration, knight_move
+from Pieces.knights.knight_helper import knight_move
 from piece import Piece
 
 class White_Knight(Piece):
