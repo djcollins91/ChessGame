@@ -5,3 +5,5 @@ class Player:
     def __str__(self):
         return self.name
     
+    def turn(self):
+        raise NotImplementedError("This method should be overridden by subclasses")
