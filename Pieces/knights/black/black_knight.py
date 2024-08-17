@@ -1,4 +1,4 @@
-from Pieces.knights.knight_helper import  knight_move
+from Pieces.knights.knight_helper import  knight_move, knight_take_piece
 from piece import Piece
 
 class Black_Knight(Piece):
@@ -19,10 +19,10 @@ class Black_Knight(Piece):
         return Black_Knight._target_str
     #how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
-        return knight_move(board,from_y,from_x,to_y,to_x, piece_check = 'BN')
+        return knight_move(board,from_y,from_x,to_y,to_x, Black_Knight._piece_str)
     
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
-        pass
+        return knight_take_piece(board,from_y,from_x,Black_Knight._piece_str,to_y,to_x, Black_Knight._target_str)
 
     
