@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import  QMainWindow, QGridLayout, QWidget
+from PyQt5.QtWidgets import  QMainWindow, QGridLayout, QWidget, QMessageBox
 from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtCore import Qt
 
@@ -129,7 +129,51 @@ class GameBoard(QMainWindow):
 
     def on_piece_clicked(self, row, col):
         piece = self.board.grid[row][col]
-        if piece:
-            print(f"Clicked on {piece} at position ({row}, {col})")
-            # Add your move logic here
 
+        if self.selected_piece is None:
+            if piece and str(piece).startswith('B'):  # Allow selection only if it's a black piece
+                self.selected_piece = piece
+                self.selected_position = (row, col)
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+                msg.setWindowTitle("Move Piece")
+                msg.setText(f"Selected {piece} at position ({row}, {col})")
+                msg.setInformativeText("Now click on the destination square.")
+                msg.setStandardButtons(QMessageBox.Ok)
+                msg.exec_()
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setWindowTitle("Invalid Selection")
+                msg.setText("Please select a black piece.")
+                msg.setStandardButtons(QMessageBox.Ok)
+                msg.exec_()
+        else:
+            # Try to move the selected piece to the new position
+            if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('W'):
+                self.board.place_piece(self.selected_piece, col, row)
+                self.board.grid[self.selected_position[0]][self.selected_position[1]] = None
+
+                # Update the UI
+                self.update_square(self.selected_position[0], self.selected_position[1], None)
+                self.update_square(row, col, self.selected_piece)
+
+                # Clear the selection
+                self.selected_piece = None
+                self.selected_position = None
+            else:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setWindowTitle("Invalid Move")
+                msg.setText("Cannot move to that square.")
+                msg.setStandardButtons(QMessageBox.Ok)
+                msg.exec_()
+
+
+    def update_square(self, row, col, piece):
+        label = self.labels.get((row, col))
+        if label:
+            if piece:
+                label.setPixmap(self.get_piece_pixmap(piece))
+            else:
+                label.clear()  # Clear the label if there's no piece
