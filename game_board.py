@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import  QMainWindow, QGridLayout, QWidget, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QGridLayout, QWidget, QMessageBox, QLabel
 from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtCore import Qt
 
@@ -15,14 +15,17 @@ from Pieces.queens.black.black_queen import Black_Queen
 from Pieces.queens.white.white_queen import White_Queen
 from Pieces.rooks.black.black_rook import Black_Rook
 from Pieces.rooks.white.white_rook import White_Rook
+from Pieces.empty.empty import Empty_Spot
 from board import Board
 from clickable_label import ClickableLabel
-
-
+SQUARE_SIZE = 50
 class GameBoard(QMainWindow):
     def __init__(self):
         super().__init__()
         self.board = Board()  # Initialize your Board here
+        self.selected_piece = None
+        self.selected_position = None
+        self.labels = {}  # To store references to labels for updating squares
         self.init_ui()
 
     def init_ui(self):
@@ -39,9 +42,45 @@ class GameBoard(QMainWindow):
         self.grid_layout = QGridLayout(central_widget)
         central_widget.setLayout(self.grid_layout)
 
-        SQUARE_SIZE = 50
+        
 
         board_setup = {
+            #Empty Spaces
+            (2, 0): Empty_Spot("WEmpty Spot"),
+            (2, 1): Empty_Spot("WEmpty Spot"),
+            (2, 2): Empty_Spot("WEmpty Spot"),
+            (2, 3): Empty_Spot("WEmpty Spot"),
+            (2, 4): Empty_Spot("WEmpty Spot"),
+            (2, 5): Empty_Spot("WEmpty Spot"),
+            (2, 6): Empty_Spot("WEmpty Spot"),
+            (2, 7): Empty_Spot("WEmpty Spot"),
+            
+            (3, 0): Empty_Spot("WEmpty Spot"),
+            (3, 1): Empty_Spot("WEmpty Spot"),
+            (3, 2): Empty_Spot("WEmpty Spot"),
+            (3, 3): Empty_Spot("WEmpty Spot"),
+            (3, 4): Empty_Spot("WEmpty Spot"),
+            (3, 5): Empty_Spot("WEmpty Spot"),
+            (3, 6): Empty_Spot("WEmpty Spot"),
+            (3, 7): Empty_Spot("WEmpty Spot"),
+
+            (4, 0): Empty_Spot("WEmpty Spot"),
+            (4, 1): Empty_Spot("WEmpty Spot"),
+            (4, 2): Empty_Spot("WEmpty Spot"),
+            (4, 3): Empty_Spot("WEmpty Spot"),
+            (4, 4): Empty_Spot("WEmpty Spot"),
+            (4, 5): Empty_Spot("WEmpty Spot"),
+            (4, 6): Empty_Spot("WEmpty Spot"),
+            (4, 7): Empty_Spot("WEmpty Spot"),
+
+            (5, 0): Empty_Spot("WEmpty Spot"),
+            (5, 1): Empty_Spot("WEmpty Spot"),
+            (5, 2): Empty_Spot("WEmpty Spot"),
+            (5, 3): Empty_Spot("WEmpty Spot"),
+            (5, 4): Empty_Spot("WEmpty Spot"),
+            (5, 5): Empty_Spot("WEmpty Spot"),
+            (5, 6): Empty_Spot("WEmpty Spot"),
+            (5, 7): Empty_Spot("WEmpty Spot"),
             # White pieces
             (1, 0): White_Pawn("White Pawn"),
             (1, 1): White_Pawn("White Pawn"),
@@ -76,6 +115,7 @@ class GameBoard(QMainWindow):
             (7, 5): Black_Bishop("Black Bishop"),
             (7, 1): Black_Knight("Black Knight"),
             (7, 6): Black_Knight("Black Knight"),
+
         }
 
         for pos, piece in board_setup.items():
@@ -100,8 +140,30 @@ class GameBoard(QMainWindow):
                     piece_label.setAlignment(Qt.AlignCenter)
                     piece_label.clicked.connect(self.on_piece_clicked)
                     self.grid_layout.addWidget(piece_label, row, col)
+                    self.labels[(row, col)] = piece_label  # Store label reference
 
         self.show()
+    def remove_piece(self, position):
+        if position in self.board_setup:
+            del self.board_setup[position]
+            self.refresh_ui()
+    def set_piece(self, position, piece):
+        self.board_setup[position] = piece
+        self.refresh_ui()
+    def refresh_ui(self):
+        # Clear the current layout
+        for i in reversed(range(self.grid_layout.count())):
+            widget = self.grid_layout.itemAt(i).widget()
+            if widget:
+                widget.setParent(None)
+
+        # Re-add all pieces based on the updated board_setup
+        for (row, col), piece in self.board_setup.items():
+            label = QLabel(piece.name)  # Assuming each piece has a `name` attribute
+            label.setFixedSize(SQUARE_SIZE, SQUARE_SIZE)
+            label.setAlignment(Qt.AlignCenter)
+            self.grid_layout.addWidget(label, row, col)
+
 
     def get_piece_pixmap(self, piece):
         piece_images = {
@@ -131,43 +193,28 @@ class GameBoard(QMainWindow):
         piece = self.board.grid[row][col]
 
         if self.selected_piece is None:
-            if piece and str(piece).startswith('B'):  # Allow selection only if it's a black piece
+            if piece and str(piece).startswith('B'):  # Example: Black pieces
                 self.selected_piece = piece
                 self.selected_position = (row, col)
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Information)
-                msg.setWindowTitle("Move Piece")
-                msg.setText(f"Selected {piece} at position ({row}, {col})")
-                msg.setInformativeText("Now click on the destination square.")
-                msg.setStandardButtons(QMessageBox.Ok)
-                msg.exec_()
+                QMessageBox.information(self, "Move Piece", 
+                                        f"Selected {piece} at ({row}, {col}). Click on the destination.")
             else:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setWindowTitle("Invalid Selection")
-                msg.setText("Please select a black piece.")
-                msg.setStandardButtons(QMessageBox.Ok)
-                msg.exec_()
+                QMessageBox.warning(self, "Invalid Selection", "Please select a black piece.")
         else:
-            # Try to move the selected piece to the new position
-            if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('W'):
+            if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('W'):  # Empty or opponent's piece
+                # Perform move
                 self.board.place_piece(self.selected_piece, col, row)
-                self.board.grid[self.selected_position[0]][self.selected_position[1]] = None
+                self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
 
-                # Update the UI
+                # Update UI
                 self.update_square(self.selected_position[0], self.selected_position[1], None)
                 self.update_square(row, col, self.selected_piece)
 
-                # Clear the selection
+                # Reset selection
                 self.selected_piece = None
                 self.selected_position = None
             else:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setWindowTitle("Invalid Move")
-                msg.setText("Cannot move to that square.")
-                msg.setStandardButtons(QMessageBox.Ok)
-                msg.exec_()
+                QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
 
 
     def update_square(self, row, col, piece):
@@ -176,4 +223,16 @@ class GameBoard(QMainWindow):
             if piece:
                 label.setPixmap(self.get_piece_pixmap(piece))
             else:
-                label.clear()  # Clear the label if there's no piece
+                label.clear()  # Clears the label content for an empty square
+                self.labels.pop((row, col), None)  # Remove the reference
+        else:
+            if piece:
+                new_label = ClickableLabel(row, col)
+                new_label.setPixmap(self.get_piece_pixmap(piece))
+                new_label.setAlignment(Qt.AlignCenter)
+                new_label.clicked.connect(self.on_piece_clicked)
+                self.grid_layout.addWidget(new_label, row, col)
+                self.labels[(row, col)] = new_label
+
+
+
