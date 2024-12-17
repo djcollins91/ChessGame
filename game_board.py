@@ -18,6 +18,8 @@ from Pieces.rooks.white.white_rook import White_Rook
 from Pieces.empty.empty import Empty_Spot
 from board import Board
 from clickable_label import ClickableLabel
+from computer_player import Computer_Player
+from human_player import Human_Player
 SQUARE_SIZE = 50
 class GameBoard(QMainWindow):
     def __init__(self):
@@ -27,7 +29,7 @@ class GameBoard(QMainWindow):
         self.selected_position = None
         self.labels = {}  # To store references to labels for updating squares
         self.init_ui()
-
+    turnVar = True
     def init_ui(self):
         GAME_TITLE = "Chess"
         GAME_WIDTH = 500
@@ -41,7 +43,7 @@ class GameBoard(QMainWindow):
 
         self.grid_layout = QGridLayout(central_widget)
         central_widget.setLayout(self.grid_layout)
-
+    
         
 
         board_setup = {
@@ -190,31 +192,69 @@ class GameBoard(QMainWindow):
         return pixmap
 
     def on_piece_clicked(self, row, col):
-        piece = self.board.grid[row][col]
+        player1 = Human_Player("Player1", self.board)
 
-        if self.selected_piece is None:
-            if piece and str(piece).startswith('B'):  # Example: Black pieces
-                self.selected_piece = piece
-                self.selected_position = (row, col)
-                QMessageBox.information(self, "Move Piece", 
-                                        f"Selected {piece} at ({row}, {col}). Click on the destination.")
+        player2 = Computer_Player("Player2", self.board)
+        current_player = player1
+
+        if (GameBoard.turnVar == True):
+            piece = self.board.grid[row][col]
+
+            if self.selected_piece is None:
+                if piece and str(piece).startswith('B'):  # Example: Black pieces
+                    self.selected_piece = piece
+                    self.selected_position = (row, col)
+                    QMessageBox.information(self, "Move Piece", 
+                                            f"Selected {piece} at ({row}, {col}). Click on the destination.")
+                else:
+                    QMessageBox.warning(self, "Invalid Selection", "Please select a black piece.")
             else:
-                QMessageBox.warning(self, "Invalid Selection", "Please select a black piece.")
-        else:
-            if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('W'):  # Empty or opponent's piece
-                # Perform move
-                self.board.place_piece(self.selected_piece, col, row)
-                self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
+                if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('W'):  # Empty or opponent's piece
+                    # Perform move
+                    self.board.place_piece(self.selected_piece, col, row)
+                    self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
 
-                # Update UI
-                self.update_square(self.selected_position[0], self.selected_position[1], None)
-                self.update_square(row, col, self.selected_piece)
+                    # Update UI
+                    self.update_square(self.selected_position[0], self.selected_position[1], None)
+                    self.update_square(row, col, self.selected_piece)
 
-                # Reset selection
-                self.selected_piece = None
-                self.selected_position = None
+                    # Reset selection
+                    self.selected_piece = None
+                    self.selected_position = None
+                else:
+                    QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
+            current_player = player2
+        elif current_player == player2:
+            piece = self.board.grid[row][col]
+
+            if self.selected_piece is None:
+                if piece and str(piece).startswith('W'):  # Example: Black pieces
+                    self.selected_piece = piece
+                    self.selected_position = (row, col)
+                    QMessageBox.information(self, "Move Piece", 
+                                            f"Selected {piece} at ({row}, {col}). Click on the destination.")
+                else:
+                    QMessageBox.warning(self, "Invalid Selection", "Please select a black piece.")
             else:
-                QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
+                if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('B'):  # Empty or opponent's piece
+                    # Perform move
+                    self.board.place_piece(self.selected_piece, col, row)
+                    self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
+
+                    # Update UI
+                    self.update_square(self.selected_position[0], self.selected_position[1], None)
+                    self.update_square(row, col, self.selected_piece)
+
+                    # Reset selection
+                    self.selected_piece = None
+                    self.selected_position = None
+                else:
+                    QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
+            current_player = player2
+
+        
+
+        
 
 
     def update_square(self, row, col, piece):
