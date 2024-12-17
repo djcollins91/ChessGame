@@ -48,41 +48,41 @@ class GameBoard(QMainWindow):
 
         board_setup = {
             #Empty Spaces
-            (2, 0): Empty_Spot("WEmpty Spot"),
-            (2, 1): Empty_Spot("WEmpty Spot"),
-            (2, 2): Empty_Spot("WEmpty Spot"),
-            (2, 3): Empty_Spot("WEmpty Spot"),
-            (2, 4): Empty_Spot("WEmpty Spot"),
-            (2, 5): Empty_Spot("WEmpty Spot"),
-            (2, 6): Empty_Spot("WEmpty Spot"),
-            (2, 7): Empty_Spot("WEmpty Spot"),
+            (2, 0): Empty_Spot("Empty Spot"),
+            (2, 1): Empty_Spot("Empty Spot"),
+            (2, 2): Empty_Spot("Empty Spot"),
+            (2, 3): Empty_Spot("Empty Spot"),
+            (2, 4): Empty_Spot("Empty Spot"),
+            (2, 5): Empty_Spot("Empty Spot"),
+            (2, 6): Empty_Spot("Empty Spot"),
+            (2, 7): Empty_Spot("Empty Spot"),
             
-            (3, 0): Empty_Spot("WEmpty Spot"),
-            (3, 1): Empty_Spot("WEmpty Spot"),
-            (3, 2): Empty_Spot("WEmpty Spot"),
-            (3, 3): Empty_Spot("WEmpty Spot"),
-            (3, 4): Empty_Spot("WEmpty Spot"),
-            (3, 5): Empty_Spot("WEmpty Spot"),
-            (3, 6): Empty_Spot("WEmpty Spot"),
-            (3, 7): Empty_Spot("WEmpty Spot"),
+            (3, 0): Empty_Spot("Empty Spot"),
+            (3, 1): Empty_Spot("Empty Spot"),
+            (3, 2): Empty_Spot("Empty Spot"),
+            (3, 3): Empty_Spot("Empty Spot"),
+            (3, 4): Empty_Spot("Empty Spot"),
+            (3, 5): Empty_Spot("Empty Spot"),
+            (3, 6): Empty_Spot("Empty Spot"),
+            (3, 7): Empty_Spot("Empty Spot"),
 
-            (4, 0): Empty_Spot("WEmpty Spot"),
-            (4, 1): Empty_Spot("WEmpty Spot"),
-            (4, 2): Empty_Spot("WEmpty Spot"),
-            (4, 3): Empty_Spot("WEmpty Spot"),
-            (4, 4): Empty_Spot("WEmpty Spot"),
-            (4, 5): Empty_Spot("WEmpty Spot"),
-            (4, 6): Empty_Spot("WEmpty Spot"),
-            (4, 7): Empty_Spot("WEmpty Spot"),
+            (4, 0): Empty_Spot("Empty Spot"),
+            (4, 1): Empty_Spot("Empty Spot"),
+            (4, 2): Empty_Spot("Empty Spot"),
+            (4, 3): Empty_Spot("Empty Spot"),
+            (4, 4): Empty_Spot("Empty Spot"),
+            (4, 5): Empty_Spot("Empty Spot"),
+            (4, 6): Empty_Spot("Empty Spot"),
+            (4, 7): Empty_Spot("Empty Spot"),
 
-            (5, 0): Empty_Spot("WEmpty Spot"),
-            (5, 1): Empty_Spot("WEmpty Spot"),
-            (5, 2): Empty_Spot("WEmpty Spot"),
-            (5, 3): Empty_Spot("WEmpty Spot"),
-            (5, 4): Empty_Spot("WEmpty Spot"),
-            (5, 5): Empty_Spot("WEmpty Spot"),
-            (5, 6): Empty_Spot("WEmpty Spot"),
-            (5, 7): Empty_Spot("WEmpty Spot"),
+            (5, 0): Empty_Spot("Empty Spot"),
+            (5, 1): Empty_Spot("Empty Spot"),
+            (5, 2): Empty_Spot("Empty Spot"),
+            (5, 3): Empty_Spot("Empty Spot"),
+            (5, 4): Empty_Spot("Empty Spot"),
+            (5, 5): Empty_Spot("Empty Spot"),
+            (5, 6): Empty_Spot("Empty Spot"),
+            (5, 7): Empty_Spot("Empty Spot"),
             # White pieces
             (1, 0): White_Pawn("White Pawn"),
             (1, 1): White_Pawn("White Pawn"),
@@ -192,65 +192,60 @@ class GameBoard(QMainWindow):
         return pixmap
 
     def on_piece_clicked(self, row, col):
-        player1 = Human_Player("Player1", self.board)
+        """
+        Handles a click on the game board, including piece selection and movement.
+        
+        Args:
+            row (int): The row index of the clicked square.
+            col (int): The column index of the clicked square.
+        """
+        piece = self.board.grid[row][col]
+        current_turn = GameBoard.turnVar  # True for Black's turn, False for White's turn
 
-        player2 = Computer_Player("Player2", self.board)
-        current_player = player1
-
-        if (GameBoard.turnVar == True):
-            piece = self.board.grid[row][col]
-
-            if self.selected_piece is None:
-                if piece and str(piece).startswith('B'):  # Example: Black pieces
-                    self.selected_piece = piece
-                    self.selected_position = (row, col)
-                    QMessageBox.information(self, "Move Piece", 
-                                            f"Selected {piece} at ({row}, {col}). Click on the destination.")
-                else:
-                    QMessageBox.warning(self, "Invalid Selection", "Please select a black piece.")
+        if self.selected_piece is None:
+            # Selecting a piece
+            if current_turn and piece and str(piece).startswith('B'):  # Black's turn
+                self.selected_piece = piece
+                self.selected_position = (row, col)
+                QMessageBox.information(self, "Move Piece", 
+                                        f"Selected {piece} at ({row}, {col}). Click on the destination.")
+            elif not current_turn and piece and str(piece).startswith('W'):  # White's turn
+                self.selected_piece = piece
+                self.selected_position = (row, col)
+                QMessageBox.information(self, "Move Piece", 
+                                        f"Selected {piece} at ({row}, {col}). Click on the destination.")
             else:
-                if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('W'):  # Empty or opponent's piece
-                    # Perform move
-                    self.board.place_piece(self.selected_piece, col, row)
-                    self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
+                QMessageBox.warning(self, "Invalid Selection", "Please select a valid piece for your turn.")
+        else:
+            # Moving the selected piece
+            valid_destination = (
+                piece is None or  # Empty square
+                (current_turn and str(piece).startswith('W')) or  # Black capturing White
+                (not current_turn and str(piece).startswith('B')) or  # White capturing Black
+                str(piece).startswith('E')  # Empty spot
+            )
 
-                    # Update UI
-                    self.update_square(self.selected_position[0], self.selected_position[1], None)
-                    self.update_square(row, col, self.selected_piece)
+            if valid_destination:
+                # Perform the move
+                self.board.place_piece(self.selected_piece, col, row)
+                self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
 
-                    # Reset selection
-                    self.selected_piece = None
-                    self.selected_position = None
-                else:
-                    QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
-            current_player = player2
-        elif current_player == player2:
-            piece = self.board.grid[row][col]
+                # Update the UI
+                self.update_square(self.selected_position[0], self.selected_position[1], None)
+                self.update_square(row, col, self.selected_piece)
 
-            if self.selected_piece is None:
-                if piece and str(piece).startswith('W'):  # Example: Black pieces
-                    self.selected_piece = piece
-                    self.selected_position = (row, col)
-                    QMessageBox.information(self, "Move Piece", 
-                                            f"Selected {piece} at ({row}, {col}). Click on the destination.")
-                else:
-                    QMessageBox.warning(self, "Invalid Selection", "Please select a black piece.")
+                # Reset the selection
+                self.selected_piece = None
+                self.selected_position = None
+
+                # Switch the turn
+                GameBoard.turnVar = not GameBoard.turnVar
             else:
-                if self.board.grid[row][col] is None or str(self.board.grid[row][col]).startswith('B'):  # Empty or opponent's piece
-                    # Perform move
-                    self.board.place_piece(self.selected_piece, col, row)
-                    self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
+                QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
 
-                    # Update UI
-                    self.update_square(self.selected_position[0], self.selected_position[1], None)
-                    self.update_square(row, col, self.selected_piece)
 
-                    # Reset selection
-                    self.selected_piece = None
-                    self.selected_position = None
-                else:
-                    QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
-            current_player = player2
+        
+
 
         
 
