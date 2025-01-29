@@ -1,4 +1,5 @@
 from Pieces.bishops.black.black_bishop import Black_Bishop
+from Pieces.empty.empty import Empty_Spot
 from Pieces.kings.black.black_king import Black_King
 from Pieces.knights.black.black_knight import Black_Knight
 from Pieces.pawns.black.black_pawn import Black_Pawn
@@ -108,6 +109,22 @@ def knights(board, board_width):
     for i, knight in enumerate(black_knights):
         if (i == 1) or (i == 6):
             board.place_piece(knight, i, 7)
+    
+def empty_spots(board, board_width):
+    # Create white and black rooks with specific classes
+    empty_spots = [Empty_Spot(Empty_Spot.get_piece_str()) for _ in board_width]
+    
+    #places the white_pawns
+    for i, pawn in enumerate(empty_spots):
+        board.place_piece(pawn, i, 2)
+    for i, pawn in enumerate(empty_spots):
+        board.place_piece(pawn, i, 3)
+    for i, pawn in enumerate(empty_spots):
+        board.place_piece(pawn, i, 4)
+    for i, pawn in enumerate(empty_spots):
+        board.place_piece(pawn, i, 5)
+    
+
 
             
 # puts each piece on the board
@@ -118,5 +135,6 @@ def initialize_pieces(board, board_width):
     queens(board, board_width)
     bishops(board, board_width)
     knights(board, board_width)
+    empty_spots(board, board_width)
 
     

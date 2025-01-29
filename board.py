@@ -19,6 +19,12 @@ class Board:
             self.grid[y][x] = piece
         else:
             raise ValueError("Position out of bounds")
+        
+    def remove_piece(self, x, y):
+        if 0 <= x < self.WIDTH and 0 <= y < self.LENGTH:
+            self.grid[y][x] = None
+        else:
+            raise ValueError("Position out of bounds")
 
     def __str__(self):
         board_str = ""

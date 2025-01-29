@@ -84,14 +84,14 @@ class GameBoard(QMainWindow):
             (5, 6): Empty_Spot("Empty Spot"),
             (5, 7): Empty_Spot("Empty Spot"),
             # White pieces
-            (1, 0): White_Pawn("White Pawn"),
-            (1, 1): White_Pawn("White Pawn"),
-            (1, 2): White_Pawn("White Pawn"),
-            (1, 3): White_Pawn("White Pawn"),
-            (1, 4): White_Pawn("White Pawn"),
-            (1, 5): White_Pawn("White Pawn"),
-            (1, 6): White_Pawn("White Pawn"),
-            (1, 7): White_Pawn("White Pawn"),
+            (1, 0): Black_Pawn("Black Pawn"),
+            (1, 1): Black_Pawn("Black Pawn"),
+            (1, 2): Black_Pawn("Black Pawn"),
+            (1, 3): Black_Pawn("Black Pawn"),
+            (1, 4): Black_Pawn("Black Pawn"),
+            (1, 5): Black_Pawn("Black Pawn"),
+            (1, 6): Black_Pawn("Black Pawn"),
+            (1, 7): Black_Pawn("Black Pawn"),
             (0, 0): White_Rook("White Rook"),
             (0, 7): White_Rook("White Rook"),
             (0, 4): White_King("White King"),
@@ -101,14 +101,14 @@ class GameBoard(QMainWindow):
             (0, 1): White_Knight("White Knight"),
             (0, 6): White_Knight("White Knight"),
             # Black pieces
-            (6, 0): Black_Pawn("Black Pawn"),
-            (6, 1): Black_Pawn("Black Pawn"),
-            (6, 2): Black_Pawn("Black Pawn"),
-            (6, 3): Black_Pawn("Black Pawn"),
-            (6, 4): Black_Pawn("Black Pawn"),
-            (6, 5): Black_Pawn("Black Pawn"),
-            (6, 6): Black_Pawn("Black Pawn"),
-            (6, 7): Black_Pawn("Black Pawn"),
+            (6, 0): White_Pawn("White Pawn"),
+            (6, 1): White_Pawn("White Pawn"),
+            (6, 2): White_Pawn("White Pawn"),
+            (6, 3): White_Pawn("White Pawn"),
+            (6, 4): White_Pawn("White Pawn"),
+            (6, 5): White_Pawn("White Pawn"),
+            (6, 6): White_Pawn("White Pawn"),
+            (6, 7): White_Pawn("White Pawn"),
             (7, 0): Black_Rook("Black Rook"),
             (7, 7): Black_Rook("Black Rook"),
             (7, 4): Black_King("Black King"),
@@ -192,47 +192,41 @@ class GameBoard(QMainWindow):
         return pixmap
 
     def on_piece_clicked(self, row, col):
-        """
-        Handles a click on the game board, including piece selection and movement.
-        
-        Args:
-            row (int): The row index of the clicked square.
-            col (int): The column index of the clicked square.
-        """
-        piece = self.board.grid[row][col]
+        player1 = Human_Player("Player1", self.board)
+        player2 = Human_Player("Player2", self.board)
         current_turn = GameBoard.turnVar  # True for Black's turn, False for White's turn
+        piece = self.board.grid[row][col]
 
         if self.selected_piece is None:
-            # Selecting a piece
-            if current_turn and piece and str(piece).startswith('B'):  # Black's turn
+            # First click: Selecting a piece
+            if (current_turn and piece and str(piece).startswith('B')) or \
+            (not current_turn and piece and str(piece).startswith('W')):
                 self.selected_piece = piece
                 self.selected_position = (row, col)
-                QMessageBox.information(self, "Move Piece", 
-                                        f"Selected {piece} at ({row}, {col}). Click on the destination.")
-            elif not current_turn and piece and str(piece).startswith('W'):  # White's turn
-                self.selected_piece = piece
-                self.selected_position = (row, col)
-                QMessageBox.information(self, "Move Piece", 
+                QMessageBox.information(self, "Move Piece",
                                         f"Selected {piece} at ({row}, {col}). Click on the destination.")
             else:
                 QMessageBox.warning(self, "Invalid Selection", "Please select a valid piece for your turn.")
         else:
-            # Moving the selected piece
+            # Second click: Moving the selected piece
+            from_y, from_x = self.selected_position
+            to_y, to_x = row, col
+
             valid_destination = (
                 piece is None or  # Empty square
                 (current_turn and str(piece).startswith('W')) or  # Black capturing White
                 (not current_turn and str(piece).startswith('B')) or  # White capturing Black
-                str(piece).startswith('E')  # Empty spot
+                (str(piece).startswith('E') and ( player1.turn(self.board, from_x, from_y, to_x, to_y, piece))) # Empty spot
             )
 
             if valid_destination:
                 # Perform the move
-                self.board.place_piece(self.selected_piece, col, row)
-                self.board.grid[self.selected_position[0]][self.selected_position[1]] = Empty_Spot("Empty")  # Clear old spot
+                self.board.place_piece(self.selected_piece, to_y, to_x)
+                self.board.grid[from_y][from_x] = Empty_Spot("Empty Spot")  # Clear old spot
 
                 # Update the UI
-                self.update_square(self.selected_position[0], self.selected_position[1], None)
-                self.update_square(row, col, self.selected_piece)
+                self.update_square(from_y, from_x, None)
+                self.update_square(to_y, to_x, self.selected_piece)
 
                 # Reset the selection
                 self.selected_piece = None
@@ -243,13 +237,6 @@ class GameBoard(QMainWindow):
             else:
                 QMessageBox.warning(self, "Invalid Move", "Cannot move to that square.")
 
-
-        
-
-
-        
-
-        
 
 
     def update_square(self, row, col, piece):

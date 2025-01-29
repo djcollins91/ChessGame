@@ -1,6 +1,6 @@
 import unittest
 from board import Board
-from helper import pawns, board_width
+from helper import bishops, empty_spots, kings, knights, pawns, board_width, queens, rooks
 from Pieces.pawns.black.black_pawn import Black_Pawn  # Import specific pawn classes
 
 class TestBoard(unittest.TestCase):
@@ -11,6 +11,12 @@ class TestBoard(unittest.TestCase):
 
     def initialize_pieces(self, board):
         pawns(board, board_width)
+        rooks(board, board_width)
+        kings(board, board_width)
+        queens(board, board_width)
+        bishops(board, board_width)
+        knights(board, board_width)
+        empty_spots(board, board_width)
 
     def test_valid_move_forward(self):
         # Test 1: Move Piece forward by 1 square from initial position
@@ -68,6 +74,8 @@ class TestBoard(unittest.TestCase):
 
 
         # Test 6: Move Piece sideways (invalid move)
+        self.board.remove_piece(3, 3)
+        self.board.remove_piece(2, 3)
         self.board.place_piece(Black_Pawn('BP'), 3, 3)
         from_x, from_y = 3, 3
         to_x, to_y = 2, 3  # Invalid move for a Piece

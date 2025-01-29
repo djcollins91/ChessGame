@@ -1,3 +1,4 @@
+from Pieces.empty.empty import Empty_Spot
 from piece import Piece
 
 class Black_Pawn(Piece):
@@ -22,7 +23,7 @@ class Black_Pawn(Piece):
         if piece and str(piece) == Black_Pawn._piece_str:
             # Ensure it's a valid move
             if (from_y == 6 and to_y in [4, 5]) or (from_y != 6 and to_y == from_y - 1):
-                if from_x == to_x and board.grid[to_y][to_x] is None:
+                if (from_x == to_x) and (str(board.grid[to_y][to_x]) == Empty_Spot.get_piece_str()) :
                     return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
         return Piece.invalid_move()
     
