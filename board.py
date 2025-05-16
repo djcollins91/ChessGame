@@ -1,10 +1,12 @@
+from Pieces.empty.empty import Empty_Spot
+
 class Board:
     WIDTH = 8
     LENGTH = 8
 
     def __init__(self):
-        # Initialize the board with None to indicate empty cells
-        self.grid = [[None for _ in range(Board.WIDTH)] for _ in range(Board.LENGTH)]
+        # Initialize the board with Empty_Spot objects
+        self.grid = [[Empty_Spot("Empty Spot") for _ in range(Board.WIDTH)] for _ in range(Board.LENGTH)]
 
     @staticmethod
     def getWIDTH():
@@ -19,10 +21,10 @@ class Board:
             self.grid[y][x] = piece
         else:
             raise ValueError("Position out of bounds")
-        
+
     def remove_piece(self, x, y):
         if 0 <= x < self.WIDTH and 0 <= y < self.LENGTH:
-            self.grid[y][x] = None
+            self.grid[y][x] = Empty_Spot("Empty Spot")  # Not None
         else:
             raise ValueError("Position out of bounds")
 
@@ -31,3 +33,4 @@ class Board:
         for row in self.grid:
             board_str += " ".join([str(cell) if cell else '.' for cell in row]) + "\n"
         return board_str
+    

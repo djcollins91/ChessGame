@@ -1,12 +1,8 @@
 from piece import Piece
 
 class Empty_Spot(Piece):
-     def __init__(self, name):
-        self.name = name
+    def __init__(self, name="Empty Spot"):
+        super().__init__(name)
 
-     def __str__(self):
-        return self.name
-     _piece_str = "E"
-
-     def get_piece_str():
-      return Empty_Spot._piece_str
+    def __str__(self):
+        return "Empty Spot"
