@@ -8,8 +8,9 @@ from Pieces.pawns.black.black_pawn import Black_Pawn
 from board import Board
 from piece import Piece
 
+
 class GameBoard(QWidget):
-    turnVar = False  # False = Black's turn
+    turnVar = False  # False = Black's turn, True = White's turn
 
     def __init__(self, board):
         super().__init__()
@@ -27,6 +28,11 @@ class GameBoard(QWidget):
                 self.update_square(row, col, self.board.grid[row][col])
 
     def update_square(self, row, col, piece):
+        # Remove old button if one exists
+        if self.buttons[row][col] is not None:
+            self.grid_layout.removeWidget(self.buttons[row][col])
+            self.buttons[row][col].deleteLater()
+
         button = QPushButton()
         button.setFixedSize(80, 80)
         color = "white" if (row + col) % 2 == 0 else "blue"
@@ -49,42 +55,30 @@ class GameBoard(QWidget):
         if self.selected_pos is None:
             # Selecting a piece
             if clicked_piece and str(clicked_piece) != "Empty Spot":
-                if (GameBoard.turnVar and str(clicked_piece).startswith("W")) or (not GameBoard.turnVar and str(clicked_piece).startswith("B")):
+                if (GameBoard.turnVar and str(clicked_piece).startswith("W")) or \
+                (not GameBoard.turnVar and str(clicked_piece).startswith("B")):
                     self.selected_pos = (row, col)
                     QMessageBox.information(self, "Piece Selected", f"Selected piece at ({row},{col}). Now click a destination.")
                 else:
                     QMessageBox.warning(self, "Wrong Turn", "It's not your turn.")
         else:
-            # Attempting to move selected piece
             from_row, from_col = self.selected_pos
             moving_piece = self.board.grid[from_row][from_col]
-            to_piece = self.board.grid[row][col]
+            target_piece = self.board.grid[row][col]
 
-            # Allow move if destination is an Empty_Spot instance
-            if isinstance(to_piece, Empty_Spot):
-                valid = moving_piece.move(self.board, from_col, from_row, col, row)
-                if valid:
-                    self.board.place_piece(moving_piece, row, col)
-                    self.board.grid[from_row][from_col] = Empty_Spot("Empty Spot")
-                    self.update_square(from_row, from_col, self.board.grid[from_row][from_col])
-                    self.update_square(row, col, moving_piece)
-                    QMessageBox.information(self, "Moved", f"Moved to ({row}, {col})")
-                    GameBoard.turnVar = not GameBoard.turnVar
-                else:
-                    QMessageBox.warning(self, "Invalid Move", "That move is not allowed.")
+            valid = moving_piece.move(self.board, from_col, from_row, col, row)
+
+            if valid:
+                self.board.grid[row][col] = moving_piece
+                self.board.grid[from_row][from_col] = Empty_Spot("Empty Spot")
+
+                self.update_square(from_row, from_col, self.board.grid[from_row][from_col])
+                self.update_square(row, col, self.board.grid[row][col])
+
+                QMessageBox.information(self, "Moved", f"Moved to ({row}, {col})")
+                GameBoard.turnVar = not GameBoard.turnVar
             else:
-                QMessageBox.warning(self, "Invalid", "You must move to an empty square.")
+                QMessageBox.warning(self, "Invalid Move", "That move is not allowed.")
 
             self.selected_pos = None
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    board = Board()
-
-    # Place black pawns on row 6
-    for col in range(8):
-        board.place_piece(Black_Pawn("BP"), col, 6)  # columns 0-7, row 6
-
-    game = GameBoard(board)
-    game.show()
-    sys.exit(app.exec_())
