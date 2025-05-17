@@ -10,7 +10,7 @@ class TestBoard(unittest.TestCase):
         self.initialize_pieces(self.board)
 
     def initialize_pieces(self, board):
-        # Place black pawns on row 6 (y=6)
+        # Place white pawns on row 1 (y=1)
         for col in range(8):
             board.place_piece(White_Pawn("WP"), col, 1)
 
@@ -37,15 +37,22 @@ class TestBoard(unittest.TestCase):
         self.move_and_check(from_x=0, from_y=1, to_x=0, to_y=3)
 
     def test_second_move_forward_1_square(self):
-        self.board.grid[2][2] = White_Pawn("WP")  # Setup manually for test
-        self.board.grid[2][3] = Empty_Spot("Empty Spot")
+        self.board.grid[2][2] = White_Pawn("WP")  # manually place on 2,2
+        self.board.grid[3][2] = Empty_Spot("Empty Spot")
         self.move_and_check(from_x=2, from_y=2, to_x=2, to_y=3)
 
     def test_another_forward_move(self):
-        self.board.grid[6][6] = White_Pawn("WP")
-        self.board.grid[6][7] = Empty_Spot("Empty Spot")
-        self.move_and_check(from_x=6, from_y=6, to_x=6, to_y=7)
+        self.board.grid[4][4] = White_Pawn("WP")  # manually place WP at 4,4
+        self.board.grid[5][4] = Empty_Spot("Empty Spot")
+        self.move_and_check(from_x=4, from_y=4, to_x=4, to_y=5)
 
+    def test_invalid_move_over_piece(self):
+        # Try moving a pawn forward into a square occupied by another piece
+        pawn = self.board.grid[1][6]
+        self.assertTrue(
+            pawn.move(self.board, 6, 1, 6, 2),
+            "Should not be able to move into a square occupied by another pawn"
+        )
 
 if __name__ == "__main__":
     unittest.main()

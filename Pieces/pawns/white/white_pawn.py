@@ -1,3 +1,4 @@
+from Pieces.empty.empty import Empty_Spot
 from piece import Piece
 
 class White_Pawn(Piece):
@@ -5,48 +6,46 @@ class White_Pawn(Piece):
     taken_pieces = 0
 
     def __init__(self, name):
-        self.name = name
+        super().__init__(name)
 
-    def __str__(self):
-        return self.name
     _piece_str = "WP"
     _target_str = "B"
+
     def get_piece_str(self):
         return White_Pawn._piece_str
-    
+
     def get_target_str(self):
         return White_Pawn._target_str
-    #how the piece move
-    def move(self, board, from_col, from_row, to_col, to_row):
-        print(f"White_Pawn.move called with from ({from_col},{from_row}) to ({to_col},{to_row})")
 
-        # Check straight move forward by 1
-        if to_col == from_col and to_row == from_row + 1:
-            if str(board.grid[to_row][to_col]).startswith("E"):
-                print("Valid 1-step forward")
-                return True
+    def move(self, board, from_x, from_y, to_x, to_y):
+        print(f"White_Pawn.move called with from ({from_x},{from_y}) to ({to_x},{to_y})")
 
-        # Check 2-square move forward from start
-        if from_row == 1 and to_col == from_col and to_row == 3:
-            if (str(board.grid[3][to_col]).startswith("E") and
-                str(board.grid[2][to_col]).startswith("E")):
-                print("Valid 2-step forward from start")
-                return True
+        # Move forward by 1 square
+        if from_x == to_x and to_y == from_y + 1:
+            if isinstance(board.grid[to_y][to_x], Empty_Spot):
+                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
 
-        print("Invalid black pawn move")
-        return False
-    
-   
-    
-    #how the piece can take a piece
+        # Move forward by 2 squares from starting row (y == 1)
+        if from_x == to_x and from_y == 1 and to_y == 3:
+            if isinstance(board.grid[2][to_x], Empty_Spot) and isinstance(board.grid[3][to_x], Empty_Spot):
+                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+
+        # Try capture
+        return self.take_piece(board, from_x, from_y, to_x, to_y)
+
     def take_piece(self, board, from_x, from_y, to_x, to_y):
-        piece = board.grid[from_y][from_x]
+        dx = abs(to_x - from_x)
+        dy = to_y - from_y
         target = board.grid[to_y][to_x]
-        
-        if piece and str(piece) == White_Pawn._piece_str:
-            # Ensure it's a diagonal move and there's a black piece to capture
-            if (abs(from_x - to_x) == 1 and to_y - from_y == 1) and target and str(target).startswith(White_Pawn._target_str):
-                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
+
+        print(f"take_piece called: from ({from_x},{from_y}) to ({to_x},{to_y}) dx={dx}, dy={dy}, target={target}")
+
+        # White captures diagonally forward (upward) → dy == -1 and dx == 1
+        if dx == 1 and dy == -1:
+            if not isinstance(target, Empty_Spot) and str(target).startswith("B"):
+                print("Valid capture")
+                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+
+        print("Invalid capture")
         return Piece.invalid_move()
 
-    
