@@ -4,15 +4,28 @@ from piece import Piece
 class White_Bishop(Piece):
     STARTING_PIECES = 2
     taken_pieces = 0
+    _piece_str = "WB"
+    _target_str = "B"
+    _starting_row = 0
+    _starting_col_1 = 2
+    _starting_col_2 = 5
+    
 
     def __init__(self, name):
         self.name = name
 
     def __str__(self):
         return self.name
-
-    _piece_str = "WB"
-    _target_str = "B"
+    @staticmethod
+    def get_starting_row():
+        return White_Bishop._starting_row
+    @staticmethod
+    def get_starting_col_1():
+        return White_Bishop._starting_col_1
+    @staticmethod
+    def get_starting_col_2():
+        return White_Bishop._starting_col_2
+    @staticmethod
     def get_piece_str():
         return White_Bishop._piece_str
     

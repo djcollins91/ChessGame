@@ -5,14 +5,24 @@ from piece import Piece
 class White_Queen(Piece):
     STARTING_PIECES = 1
     taken_pieces = 0
+    _piece_str = "WQ"
+    _target_str = "B"
+    _starting_row = 0
+    _starting_col = 3
+    
 
     def __init__(self, name):
         self.name = name
 
     def __str__(self):
         return self.name
-    _piece_str = "WQ"
-    _target_str = "B"
+    @staticmethod
+    def get_starting_row():
+        return White_Queen._starting_row
+    @staticmethod
+    def get_starting_col():
+        return White_Queen._starting_col
+    @staticmethod
     def get_piece_str():
         return White_Queen._piece_str
     

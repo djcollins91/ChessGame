@@ -6,12 +6,23 @@ from piece import Piece
 class Black_Pawn(Piece):
     _piece_str = "BP"
     _target_str = "W"
+    STARTING_PIECES = 8
+    taken_pieces = 0
+    _starting_row = 6
 
     def __init__(self, name):
         super().__init__(name)
-
-    def get_piece_str(self):
-        return self._piece_str
+ 
+    def get_target_str():
+        return Black_Pawn._target_str
+    @staticmethod
+    def get_piece_str():
+        return Black_Pawn._piece_str
+    
+    @staticmethod
+    def get_starting_row():
+        return Black_Pawn._starting_row
+    
 
     def move(self, board, from_x, from_y, to_x, to_y):
         # Normal forward move (one square forward: y decreases by 1)

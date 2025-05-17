@@ -4,14 +4,28 @@ from piece import Piece
 class White_Knight(Piece):
     STARTING_PIECES = 2
     taken_pieces = 0
-
+    _piece_str = "WN"
+    _target_str = "B"
+    _starting_row = 0
+    _starting_col_1 = 1
+    _starting_col_2 = 6
+    
     def __init__(self, name):
         self.name = name
 
     def __str__(self):
         return self.name
-    _piece_str = "WN"
-    _target_str = "B"
+    @staticmethod
+    def get_starting_row():
+        return White_Knight._starting_row
+    @staticmethod
+    def get_starting_col_1():
+        return White_Knight._starting_col_1
+    @staticmethod
+    def get_starting_col_2():
+        return White_Knight._starting_col_2
+
+    @staticmethod
     def get_piece_str():
         return White_Knight._piece_str
     

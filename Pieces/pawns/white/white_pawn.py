@@ -4,18 +4,22 @@ from piece import Piece
 class White_Pawn(Piece):
     STARTING_PIECES = 8
     taken_pieces = 0
+    _starting_row = 1
 
     def __init__(self, name):
         super().__init__(name)
 
     _piece_str = "WP"
     _target_str = "B"
-
-    def get_piece_str(self):
+    @staticmethod
+    def get_piece_str():
         return White_Pawn._piece_str
 
     def get_target_str(self):
         return White_Pawn._target_str
+    @staticmethod
+    def get_starting_row():
+        return White_Pawn._starting_row
 
     def move(self, board, from_x, from_y, to_x, to_y):
         print(f"White_Pawn.move called with from ({from_x},{from_y}) to ({to_x},{to_y})")

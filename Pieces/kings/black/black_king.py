@@ -4,6 +4,8 @@ from piece import Piece
 class Black_King(Piece):
     STARTING_PIECES = 1
     taken_pieces = 0
+    _starting_row = 7
+    _starting_col = 4
 
     def __init__(self, name):
         self.name = name
@@ -12,6 +14,13 @@ class Black_King(Piece):
         return self.name
     _piece_str = "BK"
     _target_str = "W"
+    @staticmethod
+    def get_starting_row():
+        return Black_King._starting_row
+    @staticmethod
+    def get_starting_col():
+        return Black_King._starting_col
+    @staticmethod
     def get_piece_str():
         return Black_King._piece_str
     

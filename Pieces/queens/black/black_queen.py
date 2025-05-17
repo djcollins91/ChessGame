@@ -5,6 +5,10 @@ from piece import Piece
 class Black_Queen(Piece):
     STARTING_PIECES = 1
     taken_pieces = 0
+    _piece_str = "BQ"
+    _target_str = "W"
+    _starting_row = 7
+    _starting_col = 3
 
     def __init__(self, name):
         self.name = name
@@ -12,8 +16,13 @@ class Black_Queen(Piece):
     def __str__(self):
         return self.name
 
-    _piece_str = "BQ"
-    _target_str = "W"
+    @staticmethod
+    def get_starting_row():
+        return Black_Queen._starting_row
+    @staticmethod
+    def get_starting_col():
+        return Black_Queen._starting_col
+    @staticmethod
     def get_piece_str():
         return Black_Queen._piece_str
     
