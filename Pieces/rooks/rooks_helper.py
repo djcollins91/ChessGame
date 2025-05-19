@@ -24,29 +24,29 @@ def rook_move(board, from_y, from_x, to_y, to_x, piece_str):
     if piece and str(piece) == piece_str:
         # Rook must move in a straight line
         if (from_x != to_x) and (from_y != to_y):
-            return False
+            return Piece.invalid_move()
         # Determine direction and step
         if from_x == to_x:
             step = 1 if to_y > from_y else -1
             for y in range(from_y + step, to_y, step):
                 if str(board.grid[y][from_x]) != "Empty Spot":
-                    return False
+                    return Piece.invalid_move()
             # Destination must be empty
             if str(board.grid[to_y][to_x]) == "Empty Spot":
-                return True
+                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
             else:
-                return False
+                return Piece.invalid_move()
         else:
             step = 1 if to_x > from_x else -1
             for x in range(from_x + step, to_x, step):
                 if str(board.grid[from_y][x]) != "Empty Spot":
-                    return False
+                    return Piece.invalid_move()
             # Destination must be empty
             if str(board.grid[to_y][to_x]) == "Empty Spot":
-                return True
+                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
             else:
-                return False
-    return False
+                return Piece.invalid_move()
+    return Piece.invalid_move() 
 
 
 def rook_take_piece(board, from_y, from_x, to_y, to_x, piece_str, target_str, C):
@@ -55,28 +55,28 @@ def rook_take_piece(board, from_y, from_x, to_y, to_x, piece_str, target_str, C)
     if piece and str(piece) == piece_str:
         # Rook must move in a straight line
         if (from_x != to_x) and (from_y != to_y):
-            return False
+            return Piece.invalid_move()
         # Determine direction and step
         if from_x == to_x:
             step = 1 if to_y > from_y else -1
             for y in range(from_y + step, to_y, step):
                 if str(board.grid[y][from_x]) != "Empty Spot":
-                    return False
+                    return Piece.invalid_move()
             # Destination must be opponent's piece
             if target and str(target).startswith(target_str):
-                return True
+                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
             else:
-                return False
+                return Piece.invalid_move()
         else:
             step = 1 if to_x > from_x else -1
             for x in range(from_x + step, to_x, step):
                 if str(board.grid[from_y][x]) != "Empty Spot":
-                    return False
+                    return Piece.invalid_move()
             # Destination must be opponent's piece
             if target and str(target).startswith(target_str):
-                return True
+                return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
             else:
-                return False
-    return False
+                return Piece.invalid_move()
+    return Piece.invalid_move()
 
 

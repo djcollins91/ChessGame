@@ -31,11 +31,18 @@ class White_Knight(Piece):
     
     def get_target_str():
         return White_Knight._target_str
-    #how the piece move
+    # how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
-        return knight_move(board,from_y,from_x,to_y,to_x, White_Knight._piece_str)
-    #how the piece can take a piece
+        # Try normal move first (to empty spot)
+        if knight_move(board, from_y, from_x, to_y, to_x, White_Knight._piece_str):
+            return Piece.valid_move(board, from_y, from_x, to_y, to_x, White_Knight._piece_str)
+        # If not valid, try to capture
+        return knight_take_piece(board, from_y, from_x, White_Knight._piece_str, to_y, to_x, White_Knight._target_str)
+
+    # how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
-        return knight_take_piece(board,from_y,from_x,White_Knight._piece_str,to_y,to_x, White_Knight._target_str)
+        return knight_take_piece(board, from_y, from_x, White_Knight._piece_str, to_y, to_x, White_Knight._target_str)
+
+
 
     
