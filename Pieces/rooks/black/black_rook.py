@@ -32,8 +32,12 @@ class Black_Rook(Piece):
         return Black_Rook._target_str
     #how the piece moves
     def move(self, board, from_x, from_y, to_x, to_y):
-        return rook_move(board,from_y,from_x,to_y,to_x,Black_Rook._piece_str)
-            
+        # Try normal move first (to empty spot)
+        if rook_move(board, from_y, from_x, to_y, to_x, Black_Rook._piece_str):
+            return True
+        # If not valid, try to capture
+        return rook_take_piece(board, from_y, from_x, to_y, to_x, Black_Rook._piece_str, Black_Rook._target_str, C='B')
+
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
-        return rook_take_piece(board,from_y,from_x,to_y,to_x,Black_Rook._piece_str,Black_Rook._target_str, C = 'B')
+        return rook_take_piece(board, from_y, from_x, to_y, to_x, Black_Rook._piece_str, Black_Rook._target_str, C='B')

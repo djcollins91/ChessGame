@@ -14,12 +14,12 @@ def main():
     place_white_bishop(board)
     place_black_rook(board)
     place_white_rook(board)
-    place_black_knight(board)
-    place_white_knight(board)
-    place_black_king(board)
-    place_white_king(board)
-    place_black_queen(board)
-    place_white_queen(board)
+    # place_black_knight(board)
+    # place_white_knight(board)
+    # place_black_king(board)
+    # place_white_king(board)
+    # place_black_queen(board)
+    # place_white_queen(board)
     
 
 

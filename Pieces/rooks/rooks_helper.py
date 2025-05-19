@@ -19,64 +19,64 @@ def direction_to_go(from_y, from_x, to_y, to_x):
     return  change, value_change
 
 
-def rook_move(board,from_y,from_x,to_y,to_x,piece_str):
+def rook_move(board, from_y, from_x, to_y, to_x, piece_str):
     piece = board.grid[from_y][from_x]
     if piece and str(piece) == piece_str:
-        # Ensure it's a valid move
-        #makes sure theres not a piece in the way
+        # Rook must move in a straight line
         if (from_x != to_x) and (from_y != to_y):
-            return Piece.invalid_move()
-        
-        change, value_change = direction_to_go(from_y, from_x, to_y, to_x)
-
-        while (from_x != to_x or from_y != to_y):
-            change += value_change
-            if (from_y == to_y):
-                if (change == to_x) and (board.grid[to_y][to_x] is None):
-                    return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)           
-                else:
-                    return Piece.invalid_move()
+            return False
+        # Determine direction and step
+        if from_x == to_x:
+            step = 1 if to_y > from_y else -1
+            for y in range(from_y + step, to_y, step):
+                if str(board.grid[y][from_x]) != "Empty Spot":
+                    return False
+            # Destination must be empty
+            if str(board.grid[to_y][to_x]) == "Empty Spot":
+                return True
             else:
-                if (change == to_y) and (board.grid[to_y][to_x] is None):
-                    return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-        
-            if (board.grid[change][from_x] is not None) :
-                return Piece.invalid_move()
-            
-            elif (board.grid[from_y][change] is not None):
-                return Piece.invalid_move()
-                
-        return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-    
+                return False
+        else:
+            step = 1 if to_x > from_x else -1
+            for x in range(from_x + step, to_x, step):
+                if str(board.grid[from_y][x]) != "Empty Spot":
+                    return False
+            # Destination must be empty
+            if str(board.grid[to_y][to_x]) == "Empty Spot":
+                return True
+            else:
+                return False
+    return False
 
-def rook_take_piece(board,from_y,from_x,to_y,to_x,piece_str,target_str, C):
+
+def rook_take_piece(board, from_y, from_x, to_y, to_x, piece_str, target_str, C):
     piece = board.grid[from_y][from_x]
     target = board.grid[to_y][to_x]
-    
     if piece and str(piece) == piece_str:
-        # Ensure it's a valid move
-        #makes sure theres not a piece in the way
+        # Rook must move in a straight line
         if (from_x != to_x) and (from_y != to_y):
-            return Piece.invalid_move()
-        change, value_change = direction_to_go(from_y, from_x, to_y, to_x)
-        while (from_x != to_x or from_y != to_y):
-            change += value_change
-            if (from_y == to_y):   
-                #checking if there if your own piece is in the way
-                if (board.grid[from_y][change]) and (str(board.grid[from_y][change]).startswith(C)):
-                    return Piece.invalid_move()
-                                                    
-                if (board.grid[to_y][change]) and target and (str(target).startswith(target_str)):
-                    return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)           
+            return False
+        # Determine direction and step
+        if from_x == to_x:
+            step = 1 if to_y > from_y else -1
+            for y in range(from_y + step, to_y, step):
+                if str(board.grid[y][from_x]) != "Empty Spot":
+                    return False
+            # Destination must be opponent's piece
+            if target and str(target).startswith(target_str):
+                return True
             else:
-                #checking if there if your own piece is in the way
-                if (board.grid[change][from_x]) and (str(board.grid[change][from_x]).startswith(C)):
-                    return Piece.invalid_move()
-                
-                if (board.grid[change][to_x]) and target and (str(target).startswith(target_str)):
-                    return Piece.valid_move(piece, board, from_x, from_y, to_x, to_y)
-    
-    return Piece.invalid_move()
+                return False
+        else:
+            step = 1 if to_x > from_x else -1
+            for x in range(from_x + step, to_x, step):
+                if str(board.grid[from_y][x]) != "Empty Spot":
+                    return False
+            # Destination must be opponent's piece
+            if target and str(target).startswith(target_str):
+                return True
+            else:
+                return False
+    return False
 
 
-    

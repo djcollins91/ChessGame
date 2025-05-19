@@ -30,8 +30,12 @@ class White_Rook(Piece):
         return White_Rook._target_str
     #how the piece moves
     def move(self, board, from_x, from_y, to_x, to_y):
-        return rook_move(board,from_y,from_x,to_y,to_x,White_Rook._piece_str)
-            
+        # Try normal move first (to empty spot)
+        if rook_move(board, from_y, from_x, to_y, to_x, White_Rook._piece_str):
+            return True
+        # If not valid, try to capture
+        return rook_take_piece(board, from_y, from_x, to_y, to_x, White_Rook._piece_str, White_Rook._target_str, C='W')
+
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
-        return rook_take_piece(board,from_y,from_x,to_y,to_x,White_Rook._piece_str,White_Rook._target_str, C = 'W')
+        return rook_take_piece(board, from_y, from_x, to_y, to_x, White_Rook._piece_str, White_Rook._target_str, C='W')
