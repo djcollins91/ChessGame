@@ -28,10 +28,14 @@ class White_Queen(Piece):
     
     def get_target_str():
         return White_Queen._target_str
-    #how the piece move
+     #how the piece move
     def move(self, board, from_x, from_y, to_x, to_y):
-        return queen_move(board,from_y,from_x,to_y,to_x, White_Queen._piece_str)
-    
+        # Try normal move first (to empty spot)
+        if queen_move(board, from_y, from_x, to_y, to_x, White_Queen._piece_str):
+            return Piece.valid_move(board, from_y, from_x, to_y, to_x, White_Queen._piece_str)
+        # If not valid, try to capture
+        return queen_take_piece(board, from_y, from_x, to_y, to_x, White_Queen._piece_str, White_Queen._target_str, C='W')
+
     #how the piece can take a piece
     def take_piece(self, board, from_x, from_y, to_x, to_y):
-        return queen_take_piece(board,from_y,from_x,to_y,to_x, White_Queen._piece_str, White_Queen._target_str, C = 'W')
+        return queen_take_piece(board, from_y, from_x, to_y, to_x, White_Queen._piece_str, White_Queen._target_str, C='W')
