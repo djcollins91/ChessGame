@@ -11,8 +11,8 @@ class TestWhitePawnCapture(unittest.TestCase):
 
     def test_wp_valid_diagonal_capture_left(self):
         """White pawn captures black pawn diagonally to the left"""
-        self.board.place_piece(Black_Pawn('BP'), 3, 3)  # Target
-        self.board.place_piece(White_Pawn('WP'), 4, 4)  # Attacker
+        self.board.place_piece(Black_Pawn(Black_Pawn.get_piece_str()), 3, 3)  # Target
+        self.board.place_piece(White_Pawn(White_Pawn.get_piece_str()), 4, 4)  # Attacker
 
         from_x, from_y = 4, 4
         to_x, to_y = 3, 3
@@ -31,8 +31,8 @@ class TestWhitePawnCapture(unittest.TestCase):
 
     def test_wp_valid_diagonal_capture_right(self):
         """White pawn captures black pawn diagonally to the right"""
-        self.board.place_piece(Black_Pawn('BP'), 5, 3)
-        self.board.place_piece(White_Pawn('WP'), 4, 4)
+        self.board.place_piece(Black_Pawn(Black_Pawn.get_piece_str()), 5, 3)
+        self.board.place_piece(White_Pawn(White_Pawn.get_piece_str()), 4, 4)
 
         from_x, from_y = 4, 4
         to_x, to_y = 5, 3
@@ -51,7 +51,7 @@ class TestWhitePawnCapture(unittest.TestCase):
 
     def test_wp_invalid_capture_empty(self):
         """White pawn tries to capture on empty square (invalid)"""
-        self.board.place_piece(White_Pawn('WP'), 4, 4)
+        self.board.place_piece(White_Pawn(White_Pawn.get_piece_str()), 4, 4)
 
         from_x, from_y = 4, 4
         to_x, to_y = 3, 3  # Empty
@@ -66,8 +66,8 @@ class TestWhitePawnCapture(unittest.TestCase):
 
     def test_wp_invalid_capture_backward(self):
         """White pawn attempts to capture backward (invalid)"""
-        self.board.place_piece(Black_Pawn('BP'), 5, 5)
-        self.board.place_piece(White_Pawn('WP'), 4, 4)
+        self.board.place_piece(Black_Pawn(Black_Pawn.get_piece_str()), 5, 5)
+        self.board.place_piece(White_Pawn(White_Pawn.get_piece_str()), 4, 4)
 
         from_x, from_y = 4, 4
         to_x, to_y = 5, 5  # Backward from White's perspective

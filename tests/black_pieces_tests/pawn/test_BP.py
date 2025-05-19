@@ -2,6 +2,7 @@ import unittest
 from board import Board
 from Pieces.pawns.black.black_pawn import Black_Pawn
 from Pieces.empty.empty import Empty_Spot
+from place_pieces import place_black_pawn
 
 class TestBoard(unittest.TestCase):
 
@@ -11,9 +12,7 @@ class TestBoard(unittest.TestCase):
 
     def initialize_pieces(self, board):
         # Place black pawns on row 6 (y=6)
-        for col in range(8):
-            board.place_piece(Black_Pawn("BP"), col, 6)
-
+        place_black_pawn(board)
     def move_and_check(self, from_x, from_y, to_x, to_y):
         pawn = self.board.grid[from_y][from_x]
         self.assertIsInstance(pawn, Black_Pawn, f"Expected a Black_Pawn at ({from_x}, {from_y})")
@@ -24,11 +23,11 @@ class TestBoard(unittest.TestCase):
 
         if can_move:
             self.board.place_piece(pawn, to_x, to_y)
-            self.board.place_piece(Empty_Spot("Empty Spot"), from_x, from_y)
+            self.board.place_piece(Empty_Spot(Empty_Spot.get_str()), from_x, from_y)
 
         self.assertIsInstance(self.board.grid[from_y][from_x], Empty_Spot, "Start square should be empty after move")
         self.assertIsInstance(self.board.grid[to_y][to_x], Black_Pawn, "Target square should have Black_Pawn")
-        self.assertEqual(str(self.board.grid[to_y][to_x]), "BP")
+        self.assertEqual(str(self.board.grid[to_y][to_x]), Black_Pawn.get_piece_str())
 
     def test_move_forward_1_square(self):
         self.move_and_check(from_x=6, from_y=6, to_x=6, to_y=5)
@@ -37,13 +36,13 @@ class TestBoard(unittest.TestCase):
         self.move_and_check(from_x=0, from_y=6, to_x=0, to_y=4)
 
     def test_second_move_forward_1_square(self):
-        self.board.grid[4][6] = Black_Pawn("BP")  # Setup manually for test
-        self.board.grid[5][6] = Empty_Spot("Empty Spot")
+        self.board.grid[4][6] = Black_Pawn(Black_Pawn.get_piece_str())  # Setup manually for test
+        self.board.grid[5][6] = Empty_Spot(Empty_Spot.get_str())
         self.move_and_check(from_x=6, from_y=4, to_x=6, to_y=3)
 
     def test_another_forward_move(self):
-        self.board.grid[4][4] = Black_Pawn("BP")
-        self.board.grid[5][4] = Empty_Spot("Empty Spot")
+        self.board.grid[4][4] = Black_Pawn(Black_Pawn.get_piece_str())
+        self.board.grid[5][4] = Empty_Spot(Empty_Spot.get_str())
         self.move_and_check(from_x=4, from_y=4, to_x=4, to_y=3)
 
     def test_invalid_move_over_piece(self):

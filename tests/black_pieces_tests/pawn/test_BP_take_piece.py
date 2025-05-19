@@ -12,8 +12,8 @@ class TestBoard(unittest.TestCase):
 
     def test_take_bp_valid_capture(self):
         # Place white pawn to capture
-        self.board.place_piece(White_Pawn('WP'), 2, 2)
-        self.board.place_piece(Black_Pawn('BP'), 3, 3)
+        self.board.place_piece(White_Pawn(White_Pawn.get_piece_str()), 2, 2)
+        self.board.place_piece(Black_Pawn(Black_Pawn.get_piece_str()), 3, 3)
         from_x, from_y = 3, 3
         to_x, to_y = 2, 2
         black_pawn = self.board.grid[from_y][from_x]
@@ -29,7 +29,7 @@ class TestBoard(unittest.TestCase):
 
     def test_take_bp_invalid_capture_no_white(self):
         # No white pawn to capture at target
-        self.board.place_piece(Black_Pawn('BP'), 4, 4)
+        self.board.place_piece(Black_Pawn(Black_Pawn.get_piece_str()), 4, 4)
         from_x, from_y = 4, 4
         to_x, to_y = 3, 3
         black_pawn = self.board.grid[from_y][from_x]
@@ -42,7 +42,7 @@ class TestBoard(unittest.TestCase):
     def test_take_bp_invalid_capture_wrong_direction(self):
         # Black pawn trying to capture backwards (which is invalid)
         self.board.place_piece(White_Pawn('WP'), 2, 2)
-        self.board.place_piece(Black_Pawn('BP'), 3, 3)
+        self.board.place_piece(Black_Pawn(Black_Pawn.get_piece_str()), 3, 3)
         from_x, from_y = 2, 2  # White pawn position (wrong piece trying to move)
         to_x, to_y = 3, 3
         black_pawn = self.board.grid[to_y][to_x]  # Actually Black Pawn is at (3,3)
@@ -56,7 +56,7 @@ class TestBoard(unittest.TestCase):
     def test_take_bp_valid_capture_from_behind(self):
         # Another valid capture test
         self.board.place_piece(White_Pawn('WP'), 5, 5)
-        self.board.place_piece(Black_Pawn('BP'), 6, 6)
+        self.board.place_piece(Black_Pawn(Black_Pawn.get_piece_str()), 6, 6)
         from_x, from_y = 6, 6
         to_x, to_y = 5, 5
         black_pawn = self.board.grid[from_y][from_x]
