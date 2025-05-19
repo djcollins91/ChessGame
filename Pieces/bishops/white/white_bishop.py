@@ -31,10 +31,15 @@ class White_Bishop(Piece):
     
     def get_target_str():
         return White_Bishop._target_str
-    #how the piece move
+    #how the piece move located in bsishop_helper
     def move(self, board, from_x, from_y, to_x, to_y):
-        return bishop_move(board,from_y,from_x,to_y,to_x, White_Bishop._piece_str)
+        # Try normal move first
+        move_result = bishop_move(board, from_y, from_x, to_y, to_x, White_Bishop._piece_str)
+        if move_result:
+            return move_result
+        # If not a normal move, try to take a piece
+        return bishop_take_piece(board, from_y, from_x, to_y, to_x, White_Bishop._piece_str, White_Bishop._target_str)
     
-    #how the piece can take a piece
+    #how the piece can take a piece located in bsishop_helper
     def take_piece(self, board, from_x, from_y, to_x, to_y):
         return bishop_take_piece(board,from_y,from_x,to_y,to_x, White_Bishop._piece_str, White_Bishop._target_str)
