@@ -1,7 +1,7 @@
 import unittest
 from board import Board
-from Pieces.pawns.black.black_pawn import Black_Pawn
-from Pieces.empty.empty import Empty_Spot
+from pieces.pawns.black.black_pawn import Black_Pawn
+from pieces.empty.empty import Empty_Spot
 from place_pieces import place_black_pawn
 
 class TestBoard(unittest.TestCase):

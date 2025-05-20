@@ -1,6 +1,6 @@
 import unittest
-from Pieces.queens.black.black_queen import Black_Queen
-from Pieces.queens.white.white_queen import White_Queen
+from pieces.queens.black.black_queen import Black_Queen
+from pieces.queens.white.white_queen import White_Queen
 from board import Board
 from place_pieces import place_black_queen
 
@@ -15,7 +15,7 @@ class TestBoard(unittest.TestCase):
     def initialize_pieces(self, board):
         place_black_queen(board)
     def test_take_BQ(self):
-        from Pieces.empty.empty import Empty_Spot
+        from pieces.empty.empty import Empty_Spot
         # Test 1: Valid capture of White_Queen by Black_Queen (diagonal)
         self.board.place_piece(Black_Queen(Black_Queen.get_piece_str()), 1, 1)
         self.board.place_piece(White_Queen(White_Queen.get_piece_str()), 2, 2)

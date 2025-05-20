@@ -1,5 +1,4 @@
-from Pieces.piece_helpers.helpers import check_to_see_direction_Q_B
-from Pieces.queens.queen_helper import queen_move, queen_take_piece
+from pieces.queens.queen_helper import queen_move, queen_take_piece
 from piece import Piece
 
 class Black_Queen(Piece):
@@ -32,7 +31,7 @@ class Black_Queen(Piece):
     def move(self, board, from_x, from_y, to_x, to_y):
         # Try normal move first (to empty spot)
         if queen_move(board, from_y, from_x, to_y, to_x, Black_Queen._piece_str):
-            return Piece.valid_move(board, from_y, from_x, to_y, to_x, Black_Queen._piece_str)
+            return Piece.valid_move()
         # If not valid, try to capture
         return queen_take_piece(board, from_y, from_x, to_y, to_x, Black_Queen._piece_str, Black_Queen._target_str, C='B')
 

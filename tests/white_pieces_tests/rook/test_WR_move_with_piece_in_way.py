@@ -1,6 +1,6 @@
 import unittest
 from board import Board
-from Pieces.rooks.white.white_rook import White_Rook
+from pieces.rooks.white.white_rook import White_Rook
 from place_pieces import place_white_rook
 
 

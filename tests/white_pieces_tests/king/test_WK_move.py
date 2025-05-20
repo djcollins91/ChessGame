@@ -1,6 +1,6 @@
 import unittest
-from Pieces.kings.white.white_king import White_King
-from Pieces.empty.empty import Empty_Spot
+from pieces.kings.white.white_king import White_King
+from pieces.empty.empty import Empty_Spot
 from board import Board
 from place_pieces import place_white_king
 

@@ -1,15 +1,15 @@
-from Pieces.bishops.black.black_bishop import Black_Bishop
-from Pieces.bishops.white.white_bishop import White_Bishop
-from Pieces.kings.black.black_king import Black_King
-from Pieces.kings.white.white_king import White_King
-from Pieces.knights.black.black_knight import Black_Knight
-from Pieces.knights.white.white_knight import White_Knight
-from Pieces.pawns.black.black_pawn import Black_Pawn
-from Pieces.pawns.white.white_pawn import White_Pawn
-from Pieces.queens.black.black_queen import Black_Queen
-from Pieces.queens.white.white_queen import White_Queen
-from Pieces.rooks.black.black_rook import Black_Rook
-from Pieces.rooks.white.white_rook import White_Rook
+from pieces.bishops.black.black_bishop import Black_Bishop
+from pieces.bishops.white.white_bishop import White_Bishop
+from pieces.kings.black.black_king import Black_King
+from pieces.kings.white.white_king import White_King
+from pieces.knights.black.black_knight import Black_Knight
+from pieces.knights.white.white_knight import White_Knight
+from pieces.pawns.black.black_pawn import Black_Pawn
+from pieces.pawns.white.white_pawn import White_Pawn
+from pieces.queens.black.black_queen import Black_Queen
+from pieces.queens.white.white_queen import White_Queen
+from pieces.rooks.black.black_rook import Black_Rook
+from pieces.rooks.white.white_rook import White_Rook
 
 
 LOOP_SIZE = 8

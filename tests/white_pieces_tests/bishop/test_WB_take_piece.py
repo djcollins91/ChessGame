@@ -1,6 +1,6 @@
 import unittest
-from Pieces.bishops.black.black_bishop import Black_Bishop
-from Pieces.bishops.white.white_bishop import White_Bishop
+from pieces.bishops.black.black_bishop import Black_Bishop
+from pieces.bishops.white.white_bishop import White_Bishop
 from board import Board
 from place_pieces import  place_white_bishop
 
@@ -14,7 +14,7 @@ class TestBoard(unittest.TestCase):
         place_white_bishop(board)
 
     def test_take_WB(self):
-        from Pieces.empty.empty import Empty_Spot
+        from pieces.empty.empty import Empty_Spot
         # Test 1: Valid capture of White_Bishop by Black_Bishop (diagonal)
         self.board.place_piece(Black_Bishop(Black_Bishop.get_piece_str()), 1, 1)
         self.board.place_piece(White_Bishop(White_Bishop.get_piece_str()), 2, 2)

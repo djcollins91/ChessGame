@@ -1,5 +1,5 @@
 import unittest
-from Pieces.bishops.white.white_bishop import White_Bishop
+from pieces.bishops.white.white_bishop import White_Bishop
 from board import Board
 from place_pieces import place_white_bishop
 
@@ -21,7 +21,7 @@ class TestBoard(unittest.TestCase):
         result = self.board.grid[from_y][from_x].move(self.board, from_x, from_y, to_x, to_y)
         self.assertEqual(result, True, "Move should be identified as valid.")
         self.board.place_piece(self.board.grid[from_y][from_x], to_x, to_y)
-        from Pieces.empty.empty import Empty_Spot
+        from pieces.empty.empty import Empty_Spot
         self.board.place_piece(Empty_Spot(Empty_Spot.get_str()), from_x, from_y)
         self.assertIsInstance(self.board.grid[from_y][from_x], Empty_Spot, "Original position should be empty after the move.")
         self.assertIsInstance(self.board.grid[to_y][to_x], White_Bishop, "Target position should have the Piece after the move.")

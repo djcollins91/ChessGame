@@ -1,4 +1,4 @@
-from Pieces.kings.king_helper import king_move, king_take_piece
+from pieces.kings.king_helper import king_move, king_take_piece
 from piece import Piece
 
 class White_King(Piece):
@@ -33,7 +33,7 @@ class White_King(Piece):
     def move(self, board, from_x, from_y, to_x, to_y):
         # Try normal move first (to empty spot)
         if king_move(board, from_y, from_x, to_y, to_x, White_King._piece_str):
-            return Piece.valid_move(board, from_y, from_x, to_y, to_x, White_King._piece_str)
+            return Piece.valid_move()
         # If not valid, try to capture
         return king_take_piece(board, from_y, from_x, to_y, to_x, White_King._piece_str, White_King._target_str)
 

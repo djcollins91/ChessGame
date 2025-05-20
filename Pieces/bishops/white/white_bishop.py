@@ -1,4 +1,4 @@
-from Pieces.bishops.bishop_helper import bishop_move, bishop_take_piece
+from pieces.bishops.bishop_helper import bishop_move, bishop_take_piece
 from piece import Piece
 
 class White_Bishop(Piece):

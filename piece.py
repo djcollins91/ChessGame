@@ -6,7 +6,7 @@ class Piece:
         return self.name
 
     @staticmethod
-    def valid_move(piece, board, from_x, from_y, to_x, to_y):
+    def valid_move():
         return True
 
     @staticmethod

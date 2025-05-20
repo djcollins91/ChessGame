@@ -1,4 +1,4 @@
-from Pieces.empty.empty import Empty_Spot
+from pieces.empty.empty import Empty_Spot
 from piece import Piece
 
 class White_Pawn(Piece):
@@ -27,12 +27,12 @@ class White_Pawn(Piece):
         # Move forward by 1 square
         if from_x == to_x and to_y == from_y + 1:
             if isinstance(board.grid[to_y][to_x], Empty_Spot):
-                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+                return Piece.valid_move()
 
         # Move forward by 2 squares from starting row (y == 1)
         if from_x == to_x and from_y == 1 and to_y == 3:
             if isinstance(board.grid[2][to_x], Empty_Spot) and isinstance(board.grid[3][to_x], Empty_Spot):
-                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+                return Piece.valid_move()
 
         # Try capture
         return self.take_piece(board, from_x, from_y, to_x, to_y)
@@ -46,9 +46,9 @@ class White_Pawn(Piece):
 
         # White captures diagonally forward (upward) → dy == -1 and dx == 1
         if dx == 1 and dy == -1:
-            if not isinstance(target, Empty_Spot) and str(target).startswith("B"):
+            if not isinstance(target, Empty_Spot) and str(target).startswith(White_Pawn._target_str):
                 print("Valid capture")
-                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+                return Piece.valid_move()
 
         print("Invalid capture")
         return Piece.invalid_move()

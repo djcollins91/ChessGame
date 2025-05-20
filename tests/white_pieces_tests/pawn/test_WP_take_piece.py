@@ -1,8 +1,8 @@
 import unittest
 from board import Board
-from Pieces.pawns.black.black_pawn import Black_Pawn
-from Pieces.pawns.white.white_pawn import White_Pawn
-from Pieces.empty.empty import Empty_Spot
+from pieces.pawns.black.black_pawn import Black_Pawn
+from pieces.pawns.white.white_pawn import White_Pawn
+from pieces.empty.empty import Empty_Spot
 
 class TestWhitePawnCapture(unittest.TestCase):
 

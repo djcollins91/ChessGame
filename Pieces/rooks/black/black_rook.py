@@ -1,4 +1,4 @@
-from Pieces.rooks.rooks_helper import direction_to_go, rook_move, rook_take_piece
+from pieces.rooks.rooks_helper import direction_to_go, rook_move, rook_take_piece
 from piece import Piece
 
 class Black_Rook(Piece):
@@ -34,7 +34,7 @@ class Black_Rook(Piece):
     def move(self, board, from_x, from_y, to_x, to_y):
         # Try normal move first (to empty spot)
         if rook_move(board, from_y, from_x, to_y, to_x, Black_Rook._piece_str):
-            return Piece.valid_move(board, from_y, from_x, to_y, to_x, Black_Rook._piece_str)
+            return Piece.valid_move()
         # If not valid, try to capture
         return rook_take_piece(board, from_y, from_x, to_y, to_x, Black_Rook._piece_str, Black_Rook._target_str, C='B')
 

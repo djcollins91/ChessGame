@@ -1,7 +1,7 @@
 import unittest
 from board import Board
-from Pieces.kings.white.white_king import White_King
-from Pieces.kings.black.black_king import Black_King
+from pieces.kings.white.white_king import White_King
+from pieces.kings.black.black_king import Black_King
 from place_pieces import place_black_king
 
 class TestBoard(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestBoard(unittest.TestCase):
         place_black_king(board)
         
     def test_take_BK(self):
-        from Pieces.empty.empty import Empty_Spot
+        from pieces.empty.empty import Empty_Spot
         # Test 1: Valid capture of White_King by Black_King (one square)
         self.board.place_piece(Black_King(Black_King.get_piece_str()), 1, 1)
         self.board.place_piece(White_King(White_King.get_piece_str()), 2, 2)

@@ -1,5 +1,5 @@
 
-from Pieces.empty.empty import Empty_Spot
+from pieces.empty.empty import Empty_Spot
 from piece import Piece
 
 
@@ -28,13 +28,13 @@ class Black_Pawn(Piece):
         # Normal forward move (one square forward: y decreases by 1)
         if from_x == to_x and to_y == from_y - 1:
             if isinstance(board.grid[to_y][to_x], Empty_Spot):
-                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+                return Piece.valid_move()
 
         # Two squares forward from starting position
         if from_x == to_x and from_y == 6 and to_y == 4:
             if (isinstance(board.grid[5][to_x], Empty_Spot) and
                 isinstance(board.grid[4][to_x], Empty_Spot)):
-                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+                return Piece.valid_move()
 
         # Try capturing diagonally forward only
         return self.take_piece(board, from_x, from_y, to_x, to_y)
@@ -48,9 +48,9 @@ class Black_Pawn(Piece):
 
         # For black pawns, capture direction must be forward (dy == -1)
         if dx == 1 and dy == -1:
-            if not isinstance(target, Empty_Spot) and str(target).startswith("W"):
+            if not isinstance(target, Empty_Spot) and str(target).startswith(Black_Pawn._target_str):
                 print("Valid capture")
-                return Piece.valid_move(self, board, from_x, from_y, to_x, to_y)
+                return Piece.valid_move()
 
         print("Invalid capture")
         return Piece.invalid_move()

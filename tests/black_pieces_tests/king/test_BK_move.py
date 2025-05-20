@@ -1,6 +1,6 @@
 import unittest
-from Pieces.kings.black.black_king import Black_King
-from Pieces.empty.empty import Empty_Spot
+from pieces.kings.black.black_king import Black_King
+from pieces.empty.empty import Empty_Spot
 from board import Board
 from place_pieces import place_black_king
 

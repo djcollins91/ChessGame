@@ -1,6 +1,6 @@
 import unittest
 from board import Board
-from Pieces.rooks.black.black_rook import Black_Rook
+from pieces.rooks.black.black_rook import Black_Rook
 from place_pieces import place_black_rook
 
 class TestBoard(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestBoard(unittest.TestCase):
         place_black_rook(board)
 
     def test_valid_move_forward(self):
-        from Pieces.empty.empty import Empty_Spot
+        from pieces.empty.empty import Empty_Spot
         # Test 1: Move Piece forward by 1 square from initial position
         from_x, from_y = 0, 7
         to_x, to_y = 0, 2

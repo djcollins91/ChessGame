@@ -1,7 +1,7 @@
 import unittest
 from board import Board
-from Pieces.rooks.white.white_rook import White_Rook
-from Pieces.empty.empty import Empty_Spot
+from pieces.rooks.white.white_rook import White_Rook
+from pieces.empty.empty import Empty_Spot
 from place_pieces import place_white_rook
 
 class TestBoard(unittest.TestCase):
