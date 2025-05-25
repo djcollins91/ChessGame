@@ -1,31 +1,45 @@
-# main.py
+# Chess Game (PyQt5)
 
-This is the main entry point for the Chess application.
+This is a full-featured chess game implemented in Python using PyQt5 for the graphical user interface. The game supports all standard chess rules, including:
 
-## Purpose
-- Initializes the PyQt5 application and sets up the chess board with all pieces in their starting positions.
-- Places all black and white pieces (pawns, rooks, knights, bishops, queens, kings) on the board using their respective classes and helper methods.
-- Launches the graphical interface for the chess game using the `GameBoard` class.
+- Piece movement and capturing
+- Turn-based play (White and Black)
+- Check and checkmate detection
+- Enforcement of legal moves (cannot put or leave your own king in check)
+- Game ends automatically on checkmate
 
-## How it Works
-1. Creates a `QApplication` instance for the GUI.
-2. Instantiates a `Board` object.
-3. Places all chess pieces in their correct starting positions using loops and helper methods from each piece class.
-4. Creates a `GameBoard` object with the initialized board and displays it.
-5. Starts the Qt event loop.
+## Features
+- **Modern GUI:** The chessboard and pieces are rendered with PyQt5, using custom piece images.
+- **Robust Game Logic:** All chess rules are enforced, including check, checkmate, and illegal move prevention.
+- **User Feedback:** The game provides clear messages for invalid moves, check, and checkmate situations.
 
-## Usage
-Run this file to start the chess game:
+## How to Run
+1. Install dependencies:
+   ```bash
+   pip install PyQt5
+   ```
+2. Run the game:
+   ```bash
+   python main.py
+   ```
 
-```sh
-python main.py
-```
+## Project Structure
+- `main.py` — Entry point for the application
+- `game_board.py` — Main GUI and game logic
+- `board.py`, `piece.py`, `place_pieces.py` — Board and piece setup
+- `pieces/` — Piece logic (move, take_piece, etc.)
+- `piece_images/` — Images for all chess pieces
+- `tests/` — Unit tests for all piece logic
 
-## Dependencies
-- Python 3.10+
-- PyQt5
-- All chess piece modules and helpers in the `Pieces/` directory
+## How Generative AI Helped
+This project was developed and debugged with the assistance of generative AI (GitHub Copilot). AI was used to:
+- Refactor and optimize check and checkmate detection logic
+- Debug and fix IndexError and logic bugs in piece movement and capturing
+- Implement robust enforcement of chess rules (e.g., preventing moves that leave the king in check)
+- Design and improve the PyQt5 GUI, including user feedback and board updates
+- Suggest best practices for code structure and efficiency
+- **Practice Test-Driven Development (TDD):** AI helped generate and refine unit tests for all chess piece logic, ensuring correctness and reliability through automated testing in the `tests/` directory
 
-## Notes
-- Make sure all dependencies are installed and the directory structure is intact.
-- This file should be run from the root of the project or with the correct Python path set.
+Generative AI accelerated the development process, provided solutions to complex chess logic, and ensured the GUI and game logic were robust, user-friendly, and well-tested through TDD.
+
+

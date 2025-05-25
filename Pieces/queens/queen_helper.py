@@ -27,9 +27,13 @@ def queen_take_piece(board, from_y, from_x, to_y, to_x, piece_str, target_str, C
     if piece and str(piece) == piece_str and target and str(target).startswith(target_str):
         # Check path is clear (no own pieces in the way)
         y, x = change_y, change_x
+        LOOP_SIZE = len(board.grid)
         while (y != to_y) or (x != to_x):
             y += value_change_y
             x += value_change_x
+            # Bounds check
+            if not (0 <= y < LOOP_SIZE and 0 <= x < LOOP_SIZE):
+                return Piece.invalid_move()
             if (y, x) != (to_y, to_x) and str(board.grid[y][x]) != Empty_Spot.get_str():
                 return Piece.invalid_move()
             if (y, x) != (to_y, to_x) and str(board.grid[y][x]).startswith(C):
